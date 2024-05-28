@@ -48,7 +48,7 @@ class Error(BaseModel):
 	error: bool
 	message: str
 
-class AttractionRes(BaseModel):
+class AttractionResponse(BaseModel):
 	data: Attraction
 
 class Mrt(BaseModel):
@@ -94,24 +94,24 @@ async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | 
 			attraction_data["lng"] = attraction[8]
 			attraction_data["images"] = attraction_url
 			response["data"].append(attraction_data)
-		db.close()
 		return response
 	except:
-		db.close()
 		return JSONResponse(
 		status_code=500,
 		content={"error": True, "message": "伺服器內部錯誤"}
-	)
-	
+		)
+	finally:
+		cursor.close()
+		db.close()
+
 @app.get("/api/attraction/{attractionId}")
-async def get_attraction(attractionId: int) -> AttractionRes:
+async def get_attraction(attractionId: int) -> AttractionResponse:
 	try:
 		db = pool.get_connection()
 		cursor = db.cursor()
 		cursor.execute("SELECT * FROM attraction WHERE id=%s", (attractionId, ))
 		attration_info = cursor.fetchone()
 		if not attration_info:
-			db.close()
 			return JSONResponse(
 				status_code=400,
 				content={"error": True, "message": "景點編號不正確"}
@@ -132,15 +132,15 @@ async def get_attraction(attractionId: int) -> AttractionRes:
 		attraction_data["lat"] = attration_info[7]
 		attraction_data["lng"] = attration_info[8]
 		attraction_data["images"] = attraction_url
-		db.close()
 		return {"data": attraction_data}
 	except:
-		db.close()
 		return JSONResponse(
 				status_code=500,
 				content={"error": True, "message": "伺服器內部錯誤"}
 			)
-
+	finally:
+		cursor.close()
+		db.close()
 @app.get("/api/mrts")
 async def get_all_mrt() -> Mrt:
 	try:
@@ -153,10 +153,12 @@ async def get_all_mrt() -> Mrt:
 			if not mrt[0]:
 				continue
 			data.append(mrt[0])
-		db.close()
 		return {"data": data}
 	except:
 		return JSONResponse(
 				status_code=500,
 				content={"error": True, "message": "伺服器內部錯誤"}
 			)
+	finally:
+		cursor.close()
+		db.close()
