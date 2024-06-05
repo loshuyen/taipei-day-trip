@@ -72,10 +72,8 @@ async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | 
 		cursor = db.cursor()
 		if not keyword:
 			sql_statement = "SELECT * FROM attraction LIMIT 13 OFFSET %s"
-			sql_statement = "SELECT * FROM attraction LIMIT 13 OFFSET %s"
 			vals = (page * 12, )
 		else:	
-			sql_statement = "SELECT * FROM attraction WHERE mrt=%s OR name LIKE %s LIMIT 13 OFFSET %s"
 			sql_statement = "SELECT * FROM attraction WHERE mrt=%s OR name LIKE %s LIMIT 13 OFFSET %s"
 			vals = (keyword, '%' + keyword + '%', page * 12, )
 		cursor.execute(sql_statement, vals)
@@ -93,19 +91,9 @@ async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | 
 			attraction_data = {}
 			attraction_url = []
 			cursor.execute("SELECT url FROM image WHERE attraction_id = %s", (attractions[i][0], ))
-			cursor.execute("SELECT url FROM image WHERE attraction_id = %s", (attractions[i][0], ))
 			urls = cursor.fetchall()
 			for url in urls:
 				attraction_url.append(url[0])
-			attraction_data["id"] = attractions[i][0]
-			attraction_data["name"] = attractions[i][1]
-			attraction_data["category"] = attractions[i][2]
-			attraction_data["description"] = attractions[i][3]
-			attraction_data["address"] = attractions[i][4]
-			attraction_data["transport"] = attractions[i][5]
-			attraction_data["mrt"] = attractions[i][6]
-			attraction_data["lat"] = attractions[i][7]
-			attraction_data["lng"] = attractions[i][8]
 			attraction_data["id"] = attractions[i][0]
 			attraction_data["name"] = attractions[i][1]
 			attraction_data["category"] = attractions[i][2]
