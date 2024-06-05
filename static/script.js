@@ -25,7 +25,7 @@ async function renderAttraction(keyword) {
     }
     requestInProgress = true;
     if (nextPage === null) {return requestInProgress = false;}
-    const response = await fetch(`http://52.38.139.195:8000/api/attractions?page=${nextPage}&keyword=${keyword}`);
+    const response = await fetch(`/api/attractions?page=${nextPage}&keyword=${keyword}`);
     const attractionsDataObject = await response.json();
     const attractionData = attractionsDataObject.data;
     const attraction = document.querySelector(".attraction");
@@ -40,7 +40,7 @@ async function renderAttraction(keyword) {
         const p2 = document.createElement("p");
         item.className = "attraction__item";
         imgDiv.className = "attraction__img";
-        img.src = data.images[0] || "images/default_img.png";
+        img.src = data.images[0] || "../static/images/default_img.png";
         name.className = "attraction__name";
         span.textContent = data.name;
         info.className = "attraction__info";
@@ -60,7 +60,7 @@ async function renderAttraction(keyword) {
 }
 
 async function renderMrt() {
-    const response = await fetch("http://52.38.139.195:8000/api/mrts").then(response => response.json());
+    const response = await fetch("/api/mrts").then(response => response.json());
     const mrts = response.data;
     const mrtListElement = document.querySelector(".mrt-bar__list");
     for (let mrt of mrts) {

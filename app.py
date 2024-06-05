@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from mysql.connector import pooling
 import os, dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 dotenv.load_dotenv()
 
@@ -17,7 +18,7 @@ dbconfig = {
 pool = pooling.MySQLConnectionPool(pool_name = "mypool", pool_size = 10, **dbconfig)
 
 app=FastAPI()
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
