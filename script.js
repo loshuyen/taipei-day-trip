@@ -8,10 +8,19 @@ function scrollContent(name, direction) {
     return;
 }
 
+let keyword = "";
+function searchByKeyword() {
+    let keywordInput = document.querySelector("#keyword").value;
+    nextPage = 0;
+    document.querySelector(".attraction").innerHTML = "";
+    keyword = keywordInput;
+    return renderAttraction(keyword);
+}
+
 let nextPage = 0;
-async function renderAttraction() {
+async function renderAttraction(keyword) {
     if (nextPage === null) {return;}
-    const attractionsDataObject = await fetch(`http://127.0.0.1:8000/api/attractions?page=${nextPage}`).then(response => response.json());
+    const attractionsDataObject = await fetch(`http://52.38.139.195:8000/api/attractions?page=${nextPage}&keyword=${keyword}`).then(response => response.json());
     const attractionData = attractionsDataObject.data;
     const attraction = document.querySelector(".attraction");
     for (let data of attractionData) {
@@ -19,14 +28,15 @@ async function renderAttraction() {
         const imgDiv = document.createElement("div");
         const img = document.createElement("img");
         const name = document.createElement("div");
+        const span = document.createElement("span");
         const info = document.createElement("div");
         const p1 = document.createElement("p");
         const p2 = document.createElement("p");
         item.className = "attraction__item";
         imgDiv.className = "attraction__img";
-        img.src = data.images[0];
+        img.src = data.images[0] || "images/default_img.png";
         name.className = "attraction__name";
-        name.textContent = data.name;
+        span.textContent = data.name;
         info.className = "attraction__info";
         p1.textContent = data.mrt;
         p2.textContent = data.category;
@@ -34,6 +44,7 @@ async function renderAttraction() {
         item.appendChild(imgDiv);
         imgDiv.appendChild(img);
         item.appendChild(name);
+        name.appendChild(span);
         item.appendChild(info);
         info.appendChild(p1);
         info.appendChild(p2);
@@ -42,24 +53,30 @@ async function renderAttraction() {
 }
 
 async function renderMrt() {
-    const response = await fetch("http://127.0.0.1:8000/api/mrts").then(response => response.json());
+    const response = await fetch("http://52.38.139.195:8000/api/mrts").then(response => response.json());
     const mrts = response.data;
     const mrtListElement = document.querySelector(".mrt-bar__list");
     for (let mrt of mrts) {
         const item = document.createElement("div");
         item.className = "mrt-bar__item";
         item.textContent = mrt;
+        item.addEventListener("click", (e) => {
+            const mrtName = e.target.textContent;
+            document.querySelector("#keyword").value = mrtName;
+            return searchByKeyword();
+        })
         mrtListElement.appendChild(item);
     }
     return;
 }
 
 renderMrt();
-renderAttraction();
+renderAttraction(keyword);
 
 window.addEventListener("scroll", function() {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        renderAttraction();
+    const nav = document.querySelector(".nav");
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - nav.offsetHeight) {
+        renderAttraction(keyword);
         return;
     }
 });
