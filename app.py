@@ -86,7 +86,6 @@ async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | 
 			response["nextPage"] = None
 			return response
 		if len(attractions) <= 12:
-		if len(attractions) <= 12:
 			response["nextPage"] = None
 		else:
 			response["nextPage"] = page + 1
