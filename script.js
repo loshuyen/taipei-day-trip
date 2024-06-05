@@ -18,9 +18,15 @@ function searchByKeyword() {
 }
 
 let nextPage = 0;
+let requestInProgress = false;
 async function renderAttraction(keyword) {
-    if (nextPage === null) {return;}
-    const attractionsDataObject = await fetch(`http://52.38.139.195:8000/api/attractions?page=${nextPage}&keyword=${keyword}`).then(response => response.json());
+    if (requestInProgress) {
+        return;
+    }
+    requestInProgress = true;
+    if (nextPage === null) {return requestInProgress = false;}
+    const response = await fetch(`http://52.38.139.195:8000/api/attractions?page=${nextPage}&keyword=${keyword}`);
+    const attractionsDataObject = await response.json();
     const attractionData = attractionsDataObject.data;
     const attraction = document.querySelector(".attraction");
     for (let data of attractionData) {
@@ -49,7 +55,8 @@ async function renderAttraction(keyword) {
         info.appendChild(p1);
         info.appendChild(p2);
     }
-    return nextPage = attractionsDataObject.nextPage;
+    nextPage = attractionsDataObject.nextPage;
+    return requestInProgress = false;
 }
 
 async function renderMrt() {
@@ -70,10 +77,13 @@ async function renderMrt() {
     return;
 }
 
-renderMrt();
-renderAttraction(keyword);
+window.addEventListener("load", async function() {
+    renderMrt();
+    renderAttraction(keyword);
+    return;
+});
 
-window.addEventListener("scroll", function() {
+window.addEventListener("scroll", async function() {
     const nav = document.querySelector(".nav");
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - nav.offsetHeight) {
         renderAttraction(keyword);
