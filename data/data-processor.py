@@ -1,10 +1,12 @@
 import json
 import mysql.connector
+import os, dotenv
+dotenv.load_dotenv()
 
 dbconfig = {
   "database": "tdtDB",
   "user": "root",
-  "password": "12345678", #TODO: fix later
+  "password": os.getenv("MYSQL_PASSWORD"),
   "host": "localhost"
 }
 
