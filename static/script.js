@@ -84,8 +84,9 @@ window.addEventListener("load", async function() {
 });
 
 window.addEventListener("scroll", async function() {
-    const nav = document.querySelector(".nav");
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - nav.offsetHeight) {
+    const footer = document.querySelector(".footer");
+    const rect = footer.getBoundingClientRect()
+    if (rect.top <= window.innerHeight - 50) {
         renderAttraction(keyword);
         return;
     }
