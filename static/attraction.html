@@ -4,11 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attraction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script defer src="../static/scripts/attraction.js"></script>
 </head>
 <body>
-  <div>
-    <img src="../static/images/default_img.png">
+  <nav class="nav">
+    <div class="nav__container">
+        <p class="nav__title">台北一日遊</p>
+        <div class="nav__btn">預定行程</div>
+        <div class="nav__btn">登入/註冊</div>
+    </div>
+  </nav>
+  <hr>
+  <div class="attraction-detail">
+    <div class="attraction-detail__gallery">
+      <div class="attraction-detail__slideshow">
+      </div>
+      <div class="attraction-detail__control">
+        <button class="attraction-detail__btn" onclick="nextImage(-1)">
+          <img src="../static/images/icon/btn_leftArrow.png">
+        </button>
+        <div class="attraction-detail__dot-bar">
+        </div>
+        <button class="attraction-detail__btn" onclick="nextImage(1)">
+          <img src="../static/images/icon/btn_rightArrow.png">
+        </button>
+      </div>
+    </div>
+    <div class="attraction-detail__profile">
+      <p class="attraction-detail__name"></p>
+      <p class="attraction-detail__info"></p>
+      <div class="attraction-detail__booking">
+        <div class="attraction-detail__booking-title">
+          <p>訂購導覽行程</p>
+        </div>
+        <div class="attraction-detail__booking-slogan">
+          以此景點為中心的一日行程，帶您探索城市角落故事
+        </div>
+        <div class="attraction-detail__booking-date">
+          選擇日期：
+          <label for="booking-date" class="attraction-detail__date-label">
+            <input type="date" name="booking-date" id="booking-date">
+          </label>
+        </div>
+        <div class="attraction-detail__booking-period">
+          選擇時間：
+          <div class="attraction-detail__booking-option">
+            <input type="radio" name="booking-period" id="booking-morning" value="上半天" checked>
+            <label for="booking-morning" class="attraction-detail__period-label">
+              <div class="attraction-detail__period-icon"></div>
+              上半天
+            </label>
+          </div>
+          <div class="attraction-detail__booking-option">
+            <input type="radio" name="booking-period" id="booking-noon" value="下半天">
+            <label for="booking-noon" class="attraction-detail__period-label">
+              <div class="attraction-detail__period-icon"></div>
+              下半天
+            </label>
+          </div>
+        </div>
+        <div class="attraction-detail__booking-title">
+          導覽費用：<span class="attraction-detail__booking-fee">新台幣 2000 元</span><br>
+        </div>
+        <button class="attraction-detail__booking-btn">開始預約行程</button>
+      </div>
+    </div>
   </div>
-  <img>
+  <div class="attraction-information"></div>
+  <footer class="footer">
+    <p>COPYRIGHT &copy; 2024 台北一日遊</p>
+  </footer>
 </body>
 </html>
