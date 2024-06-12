@@ -56,14 +56,14 @@ async function renderAttraction(keyword) {
         item.appendChild(info);
         info.appendChild(p1);
         info.appendChild(p2);
-        item.onclick = getAttractionPage.bind(item);
+        item.onclick = getAttractionPage;
     }
     nextPage = attractionsDataObject.nextPage;
     return requestInProgress = false;
 }
 
-function getAttractionPage() {
-    const attractionId = this.id.split("-")[1];
+function getAttractionPage(e) {
+    const attractionId = e.currentTarget.id.split("-")[1];
     return window.location.href = "/attraction/" + attractionId;
 }
 

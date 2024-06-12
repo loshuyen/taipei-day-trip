@@ -312,7 +312,7 @@ hr {
     height: 36px;
     border: none;
     border-radius: 50%;
-    opacity: 75%;
+    opacity: 0.5;
     cursor: pointer;
 
     display: flex;
@@ -340,7 +340,7 @@ hr {
     border: 1px solid #FFFFFF;
     border-radius: 50%;
     background-color: #FFFFFF;
-    opacity: 75%;
+    opacity: 0.5;
     cursor: pointer;
 }
 
