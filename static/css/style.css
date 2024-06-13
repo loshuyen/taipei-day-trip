@@ -521,13 +521,104 @@ hr {
     width: 100%;
     height: 100%;
     background-color: #000000;
-    opacity: 0.25;
+    opacity: 0.5;
     display: none;
-
+    
     position: fixed;
     z-index: 50;
     top: 0;
-    left: 0;
+}
+
+.sign {
+    width: 340px;
+    height: fit-content;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: none;
+    display: none;
+    
+    align-self: center;
+    position: fixed;
+    top: 80px;
+    z-index: 51;
+
+}
+
+.sign__header {
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 5px 5px 0 0;
+}
+
+.sign__title {
+    height: 27px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #666666;
+    margin: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign__close-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #FFFFFF;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+.sign__close-btn img{
+    width: 16px;
+    height: 16px;
+}
+
+.sign__input {
+    display: block;
+    width: 310px;
+    height: 47px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    color: #757575;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 15px;
+    padding: 15px 15px;
+
+}
+
+.sign__submit-btn {
+    width: 310px;
+    height: 47px;
+    background-color: #448899;
+    border-radius: 5px;
+    font-size: 19px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border: none;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.sign__description {
+    color: #666666;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 15px 15px 15px;
+    text-align: center;
+}
+
+.sign__description span{
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {

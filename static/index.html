@@ -15,7 +15,7 @@
         <div class="nav__container">
             <p class="nav__title">台北一日遊</p>
             <div class="nav__btn">預定行程</div>
-            <div class="nav__btn">登入/註冊</div>
+            <div class="nav__btn" id="signin-link" onclick="openSigninBox()">登入/註冊</div>
         </div>
     </nav>
     <header class="header">
@@ -45,5 +45,38 @@
     <footer class="footer">
         <p>COPYRIGHT &copy; 2024 台北一日遊</p>
     </footer>
+    <div class="fullScreenMask" onclick="closeSignBox()">
+    </div>
+    <div class="sign" id="signin-box">
+        <div class="sign__header"></div>
+        <div class="sign__title">
+            登入會員帳號
+        </div>
+        <button class="sign__close-btn" onclick="closeSignBox()">
+            <img src="../static/images/icon/icon_close.png">
+        </button>
+        <input type="text" name="username" class="sign__input" placeholder="輸入電子信箱">
+        <input type="text" name="password" class="sign__input" placeholder="輸入密碼">
+        <button class="sign__submit-btn">登入帳戶</button>
+        <div class="sign__description">
+            還沒有帳戶？<span id="register-link" onclick="openRegisterBox()">點此註冊</span>
+        </div>
+    </div>
+    <div class="sign" id="register-box">
+        <div class="sign__header"></div>
+        <div class="sign__title">
+            註冊會員帳號
+        </div>
+        <button class="sign__close-btn" onclick="closeSignBox()">
+            <img src="../static/images/icon/icon_close.png">
+        </button>
+        <input type="text" name="username" class="sign__input" placeholder="輸入姓名">
+        <input type="text" name="username" class="sign__input" placeholder="輸入電子信箱">
+        <input type="text" name="password" class="sign__input" placeholder="輸入密碼">
+        <button class="sign__submit-btn">註冊新帳戶</button>
+        <div class="sign__description">
+            已經有帳戶了？<span id="signin-link" onclick="openSigninBox()">點此登入</span>
+        </div>
+    </div>
 </body>
 </html>
