@@ -404,6 +404,7 @@ hr {
 
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .attraction-detail__booking-date input{
@@ -416,10 +417,8 @@ hr {
 }
 
 .attraction-detail__booking-date input::-webkit-calendar-picker-indicator {
-    background-image: url("/static/images/icon/icon_calendar.png");
-    width: 24px;
-    height: 24px;
     cursor: pointer;
+    opacity: 0;
 }
 
 .attraction-detail__date-label {
@@ -434,6 +433,14 @@ hr {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.attraction-detail__booking-date img {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 245px;
+    pointer-events: none;
 }
 
 .attraction-detail__booking-fee {
@@ -484,7 +491,6 @@ hr {
 
 .attraction-detail__booking-btn {
     border-style: none;
-    width: 154px;
     height: 36px;
     margin-top: 10px;
     padding: 10px 20px 10px 20px;
