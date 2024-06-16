@@ -333,6 +333,7 @@ hr {
 
 .attraction-detail__dot-bar {
     height: 12px;
+    overflow: scroll;
 
     display: flex;
     align-self: flex-end;
@@ -348,6 +349,8 @@ hr {
     background-color: #FFFFFF;
     opacity: 0.5;
     cursor: pointer;
+
+    flex-shrink: 0;
 }
 
 .attraction-detail__dot:hover {
