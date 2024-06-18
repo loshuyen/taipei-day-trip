@@ -74,6 +74,32 @@ function currentImage() {
     return showImage(slideIndex);
 }
 
+async function fetchUser() {
+    const data = await fetchWithToken("/api/user/auth").then(response=>response.json());
+    const user = data.data;
+    return user ? user : null;
+}
+
+async function updateSignLink() {
+    const user = await fetchUser();
+    if (user) {
+        document.querySelector("#signin-link").style.display = "none";
+        document.querySelector("#signout-link").style.display = "block";
+    } else {
+        document.querySelector("#signin-link").style.display = "block";
+        document.querySelector("#signout-link").style.display = "none";
+    }
+}
+
+async function fetchWithToken(url, options = {}) {
+    const token = localStorage.getItem("token");
+    options.headers = options.headers || {};
+    if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
+    }
+    const response = await fetch(url, options);
+    return response;
+}
 
 const periodOption = document.querySelector(".attraction-detail__booking-period");
 periodOption.addEventListener("change", (event) => {
@@ -92,10 +118,15 @@ title.addEventListener("click", () => {
     return window.location.href = "/";
 })
 
+window.addEventListener("DOMContentLoaded", () => {
+    updateSignLink();
+});
+
 window.addEventListener("load", async() => {
     const path = window.location.pathname;
     const attractionId = path.split("/")[2];
     await renderAttractionInfo(attractionId);
     showImage(slideIndex);
+    updateSignLink();
     return;
 });

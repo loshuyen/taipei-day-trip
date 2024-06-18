@@ -85,6 +85,27 @@ async function renderMrt() {
     return;
 }
 
+async function fetchUser() {
+    const data = await fetchWithAuth("/api/user/auth").then(response=>response.json());
+    const user = data.data;
+    return user ? user : null;
+}
+
+async function updateSignLink() {
+    const user = await fetchUser();
+    if (user) {
+        document.querySelector("#signin-link").style.display = "none";
+        document.querySelector("#signout-link").style.display = "block";
+    } else {
+        document.querySelector("#signin-link").style.display = "block";
+        document.querySelector("#signout-link").style.display = "none";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    updateSignLink();
+});
+
 window.addEventListener("load", async function() {
     renderMrt();
     renderAttraction(keyword);

@@ -538,6 +538,15 @@ hr {
     top: 0;
 }
 
+@keyframes shake {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+
 .sign {
     width: 340px;
     height: fit-content;
@@ -545,6 +554,7 @@ hr {
     border-radius: 5px;
     border: none;
     display: none;
+    animation: shake 0.2s;
     
     align-self: center;
     position: fixed;
@@ -616,6 +626,18 @@ hr {
     border: none;
     margin: 0 15px;
     cursor: pointer;
+}
+
+.sign__message--red {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    color: #FF5151;
+}
+
+.sign__message--default {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    color: #666666;
 }
 
 .sign__description {
