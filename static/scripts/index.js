@@ -56,14 +56,14 @@ async function renderAttraction(keyword) {
         item.appendChild(info);
         info.appendChild(p1);
         info.appendChild(p2);
-        item.onclick = getAttractionPage.bind(item);
+        item.onclick = getAttractionPage;
     }
     nextPage = attractionsDataObject.nextPage;
     return requestInProgress = false;
 }
 
-function getAttractionPage() {
-    const attractionId = this.id.split("-")[1];
+function getAttractionPage(e) {
+    const attractionId = e.currentTarget.id.split("-")[1];
     return window.location.href = "/attraction/" + attractionId;
 }
 
@@ -84,6 +84,27 @@ async function renderMrt() {
     }
     return;
 }
+
+async function fetchUser() {
+    const data = await fetchWithAuth("/api/user/auth").then(response=>response.json());
+    const user = data.data;
+    return user ? user : null;
+}
+
+async function updateSignLink() {
+    const user = await fetchUser();
+    if (user) {
+        document.querySelector("#signin-link").style.display = "none";
+        document.querySelector("#signout-link").style.display = "block";
+    } else {
+        document.querySelector("#signin-link").style.display = "block";
+        document.querySelector("#signout-link").style.display = "none";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    updateSignLink();
+});
 
 window.addEventListener("load", async function() {
     renderMrt();

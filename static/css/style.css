@@ -8,6 +8,10 @@ body {
     font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     line-height: 13.3px;
+    
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav {
@@ -17,7 +21,7 @@ body {
     background-color: #FFFFFF;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 10;
 
     display: flex;
     align-items: center;
@@ -50,7 +54,7 @@ body {
 }
 
 hr {
-    border-top: 1px solid #e8e8e8;
+    border-top: 0.5px solid #e8e8e8;
 }
 
 .header {
@@ -127,6 +131,8 @@ hr {
 .content {
     width: 1200px;
     margin: 40px auto;
+
+    flex-grow: 1;
 }
 
 .mrt-bar {
@@ -244,11 +250,11 @@ hr {
 
 .footer {
     width: 100%;
-    height: 104px;
+    height: 100px;
     font-weight: 700;
     color: #FFFFFF;
     background-color: #757575;
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -312,7 +318,7 @@ hr {
     height: 36px;
     border: none;
     border-radius: 50%;
-    opacity: 75%;
+    opacity: 0.5;
     cursor: pointer;
 
     display: flex;
@@ -327,6 +333,7 @@ hr {
 
 .attraction-detail__dot-bar {
     height: 12px;
+    overflow: scroll;
 
     display: flex;
     align-self: flex-end;
@@ -340,8 +347,10 @@ hr {
     border: 1px solid #FFFFFF;
     border-radius: 50%;
     background-color: #FFFFFF;
-    opacity: 75%;
+    opacity: 0.5;
     cursor: pointer;
+
+    flex-shrink: 0;
 }
 
 .attraction-detail__dot:hover {
@@ -398,6 +407,7 @@ hr {
 
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .attraction-detail__booking-date input{
@@ -410,10 +420,8 @@ hr {
 }
 
 .attraction-detail__booking-date input::-webkit-calendar-picker-indicator {
-    background-image: url("/static/images/icon/icon_calendar.png");
-    width: 24px;
-    height: 24px;
     cursor: pointer;
+    opacity: 0;
 }
 
 .attraction-detail__date-label {
@@ -428,6 +436,14 @@ hr {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.attraction-detail__booking-date img {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 245px;
+    pointer-events: none;
 }
 
 .attraction-detail__booking-fee {
@@ -478,7 +494,6 @@ hr {
 
 .attraction-detail__booking-btn {
     border-style: none;
-    width: 154px;
     height: 36px;
     margin-top: 10px;
     padding: 10px 20px 10px 20px;
@@ -498,6 +513,8 @@ hr {
     font-weight: 400;
     line-height: 23.17px;
     color: #666666;
+
+    flex-grow: 1;
 }
 
 .attraction-information__content {
@@ -507,6 +524,132 @@ hr {
 .attraction-information__title {
     font-weight: 700;
     padding: 15px 10px 0 10px;
+}
+
+.fullScreenMask {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    display: none;
+    
+    position: fixed;
+    z-index: 50;
+    top: 0;
+}
+
+@keyframes shake {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+
+.sign {
+    width: 340px;
+    height: fit-content;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: none;
+    display: none;
+    animation: shake 0.2s;
+    
+    align-self: center;
+    position: fixed;
+    top: 80px;
+    z-index: 51;
+
+}
+
+.sign__header {
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 5px 5px 0 0;
+}
+
+.sign__title {
+    height: 27px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #666666;
+    margin: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign__close-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #FFFFFF;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+.sign__close-btn img{
+    width: 16px;
+    height: 16px;
+}
+
+.sign__input {
+    display: block;
+    width: 310px;
+    height: 47px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    color: #757575;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 15px;
+    padding: 15px 15px;
+
+}
+
+.sign__submit-btn {
+    width: 310px;
+    height: 47px;
+    background-color: #448899;
+    border-radius: 5px;
+    font-size: 19px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border: none;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.sign__message--red {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    color: #FF5151;
+}
+
+.sign__message--default {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    color: #666666;
+}
+
+.sign__description {
+    color: #666666;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 15px 15px 15px;
+    text-align: center;
+}
+
+.sign__description span{
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {

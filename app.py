@@ -1,11 +1,15 @@
 from fastapi import *
 from fastapi.responses import FileResponse, JSONResponse
 from typing import Annotated
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from mysql.connector import pooling
 import os, dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import hashlib
+import jwt
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+import datetime, time
 
 dotenv.load_dotenv()
 
@@ -65,6 +69,32 @@ class AttractionResponse(BaseModel):
 
 class Mrt(BaseModel):
 	data: list[str]
+
+class UserInput(BaseModel):
+	name: str
+	email: EmailStr
+	password: str
+
+class UserOutput(BaseModel):
+	id: int
+	name: str
+	email: EmailStr
+
+class UserResponse(BaseModel):
+	data: UserOutput | None = None
+
+class UserSignin(BaseModel):
+	email: EmailStr
+	password: str
+
+security = HTTPBearer(auto_error=False)
+def get_current_user(credentials: HTTPAuthorizationCredentials= Depends(security)):
+	try:
+		token = credentials.credentials
+		user = jwt.decode(token, os.getenv("TOKEN_SECRET_KEY"), algorithms="HS256")
+		return user
+	except:
+		return None
 
 @app.get("/api/attractions")
 async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | None = None) -> Data:
@@ -153,6 +183,7 @@ async def get_attraction(attractionId: int) -> AttractionResponse:
 	finally:
 		cursor.close()
 		db.close()
+
 @app.get("/api/mrts")
 async def get_all_mrt() -> Mrt:
 	try:
@@ -171,6 +202,70 @@ async def get_all_mrt() -> Mrt:
 				status_code=500,
 				content={"error": True, "message": "伺服器內部錯誤"}
 			)
+	finally:
+		cursor.close()
+		db.close()
+
+@app.post("/api/user")
+def signup(user: UserInput):
+	try:
+		db = pool.get_connection()
+		cursor = db.cursor()
+		cursor.execute("SELECT name FROM user WHERE email=%s;", (user.email, ))
+		exist_user = cursor.fetchone()
+		if exist_user:
+			return JSONResponse(status_code=400, content={"error": True, "message": "註冊失敗，重複的Email"})
+		hash = hashlib.sha256()
+		password = user.password + os.getenv("HASH_SECRET")
+		hash.update(password.encode("utf-8"))
+		hashed_password = hash.hexdigest()
+		cursor.execute("INSERT INTO user (name, email, password) VALUES (%s, %s, %s);", (user.name, user.email, hashed_password))
+		db.commit()
+		return JSONResponse(status_code=200, content={"ok": True})
+	except:
+		return JSONResponse(status_code=500, content={"error": True, "message": "伺服器內部錯誤"})
+	finally:
+		cursor.close()
+		db.close()
+
+@app.get("/api/user/auth")
+def get_signedin_user(user: Annotated[UserOutput, Depends(get_current_user)]) -> UserResponse:
+	try:
+		db = pool.get_connection()
+		cursor = db.cursor()
+		cursor.execute("SELECT * FROM user WHERE email=%s and name=%s;", (user["email"], user["name"]))
+		user_info = cursor.fetchone()
+		if not user_info:
+			return {"data": None}
+		return {"data": user}
+	except:
+		return {"data": None}
+	finally:
+		cursor.close()
+		db.close()
+
+@app.put("/api/user/auth")
+def signin(user: UserSignin):
+	try:
+		hash = hashlib.sha256()
+		password = user.password + os.getenv("HASH_SECRET")
+		hash.update(password.encode("utf-8"))
+		hashed_password = hash.hexdigest()
+		db = pool.get_connection()
+		cursor = db.cursor()
+		cursor.execute("SELECT * FROM user WHERE email=%s and password=%s;", (user.email, hashed_password))
+		user_info = cursor.fetchone()
+		if not user_info:
+			return JSONResponse(status_code=400, content={"error": True, "message": "登入失敗，Email、密碼錯誤或尚未註冊"})
+		userObj = UserOutput(id=user_info[0], name=user_info[1], email=user_info[2]).model_dump()
+		current_utc_time = datetime.datetime.now()
+		future_utc_time = current_utc_time + datetime.timedelta(days=7)
+		future_unix_timestamp = int(time.mktime(future_utc_time.timetuple()))
+		userObj["exp"] = future_unix_timestamp
+		token = jwt.encode(userObj, os.getenv("TOKEN_SECRET_KEY"), algorithm="HS256")
+		return JSONResponse(status_code=200, content={"token": token})
+	except:
+		return JSONResponse(status_code=500, content={"error": True, "message": "伺服器內部錯誤"})
 	finally:
 		cursor.close()
 		db.close()
