@@ -8,8 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
-    <script defer src="../static/scripts/index.js"></script>
-    <script defer src="../static/scripts/auth.js"></script>
+    <script defer src="../static/controllers/index.js" type="module"></script>
 </head>
 <body>
     <nav class="nav">
@@ -26,7 +25,7 @@
             <p class="header__slogan--2">探索每個角落，體驗城市的深度旅遊行程</p>
             <div class="header__search">
                 <input type="text" class="header__search-input" placeholder="輸入景點名稱查詢" id="keyword">
-                <button class="header__search-btn" onclick="searchByKeyword()">
+                <button class="header__search-btn">
                     <img src="../static/images/icon/icon_search.svg"></img>
                 </button>
             </div>
@@ -34,11 +33,11 @@
     </header>
     <div class="content">
         <div class="mrt-bar">
-            <button class="mrt-bar__btn" onclick="scrollContent('.mrt-bar__list', 'left')">
+            <button class="mrt-bar__btn" name="left">
                 <img src="../static/images/icon/left-btn.png">
             </button>
             <div class="mrt-bar__list"></div>
-            <button class="mrt-bar__btn" onclick="scrollContent('.mrt-bar__list', 'right')">
+            <button class="mrt-bar__btn" name="right">
                 <img src="../static/images/icon/right-btn.png">
             </button>
         </div>
@@ -47,14 +46,14 @@
     <footer class="footer">
         <p>COPYRIGHT &copy; 2024 台北一日遊</p>
     </footer>
-    <div class="fullScreenMask" onclick="closeSignBox()">
+    <div class="fullScreenMask">
     </div>
     <div class="sign" id="signin-box">
         <div class="sign__header"></div>
         <div class="sign__title">
             登入會員帳號
         </div>
-        <button class="sign__close-btn" onclick="closeSignBox()">
+        <button class="sign__close-btn">
             <img src="../static/images/icon/icon_close.svg">
         </button>
         <input type="text" name="email" class="sign__input" placeholder="輸入電子信箱">
@@ -62,7 +61,7 @@
         <button class="sign__submit-btn" id="signin-btn">登入帳戶</button>
         <div id="signin-message"></div>
         <div class="sign__description">
-            還沒有帳戶？<span id="signup-link" onclick="openSignupBox()">點此註冊</span>
+            還沒有帳戶？<span id="signup-link">點此註冊</span>
         </div>
     </div>
     <div class="sign" id="signup-box">
@@ -70,7 +69,7 @@
         <div class="sign__title">
             註冊會員帳號
         </div>
-        <button class="sign__close-btn" onclick="closeSignBox()">
+        <button class="sign__close-btn">
             <img src="../static/images/icon/icon_close.svg">
         </button>
         <input type="text" name="signup-name" class="sign__input" placeholder="輸入姓名">
@@ -79,7 +78,7 @@
         <button class="sign__submit-btn" id="signup-btn">註冊新帳戶</button>
         <div id="signup-message"></div>
         <div class="sign__description">
-            已經有帳戶了？<span id="signin-link" onclick="openSigninBox()">點此登入</span>
+            已經有帳戶了？<span id="signin-link">點此登入</span>
         </div>
     </div>
 </body>
