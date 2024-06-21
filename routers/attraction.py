@@ -1,30 +1,10 @@
 from fastapi import *
 from fastapi.responses import JSONResponse
-from db_config import pool
 from typing import Annotated
-from pydantic import BaseModel
 from models.attraction import AttractionModel
+from views.attraction import *
 
 router = APIRouter()
-
-class Attraction(BaseModel):
-	id: int
-	name: str
-	category: str
-	description: str
-	address: str
-	transport: str
-	mrt: str | None = None
-	lat: float
-	lng: float
-	images: list[str]
-	
-class AttractionResponse(BaseModel):
-	data: Attraction
-
-class Data(BaseModel):
-	nextPage: int | None
-	data: list[Attraction]
 
 def arrange_data(attraction_data: tuple, image_urls: list) -> dict:
 	attraction_url = []
