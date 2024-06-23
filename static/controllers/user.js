@@ -99,12 +99,47 @@ export function signOut() {
 document.querySelectorAll("#signin-link").forEach((element) => {
     element.addEventListener("click", openSigninBox)
 });
+
 document.querySelector("#signup-link").addEventListener("click", openSignupBox);
+
 document.querySelector("#signin-btn").addEventListener("click", signIn);
+
 document.querySelector("#signout-link").addEventListener("click", signOut);
+
 document.querySelector("#signup-btn").addEventListener("click", signUp);
+
 document.querySelectorAll(".sign__close-btn").forEach((element) => {
     element.addEventListener("click", closeSignBox);
 });
+
 document.querySelector(".fullScreenMask").addEventListener("click", closeSignBox);
 
+document.querySelector(".sign__input[name='email']").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        document.querySelector("#signin-btn").click();
+    }
+});
+
+document.querySelector(".sign__input[name='password']").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        document.querySelector("#signin-btn").click();
+    }
+});
+
+document.querySelector(".sign__input[name='signup-name']").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        document.querySelector("#signup-btn").click();
+    }
+});
+
+document.querySelector(".sign__input[name='signup-email']").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        document.querySelector("#signup-btn").click();
+    }
+});
+
+document.querySelector(".sign__input[name='signup-password']").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        document.querySelector("#signup-btn").click();
+    }
+});
