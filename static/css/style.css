@@ -55,6 +55,8 @@ body {
 
 hr {
     border-top: 0.5px solid #e8e8e8;
+    position: sticky;
+    top: 54px;
 }
 
 .header {

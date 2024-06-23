@@ -9,8 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/booking.css">
-  <script defer src="../static/scripts/booking.js"></script>
-  <script defer src="../static/scripts/auth.js"></script>
+  <script defer src="../static/controllers/booking.js"></script>
 </head>
 <body>
   <nav class="nav">
@@ -60,14 +59,14 @@
   <div class="booking">
     <div class="booking-info">
       <div class="booking-info__title">信用卡付款資訊</div>
-      <div class="booking-info__user" id="booking-card-number">
-        卡片號碼：<input type="tel" maxlength="19" placeholder="**** **** **** ****">
+      <div class="booking-info__user">
+        卡片號碼：<input type="tel" maxlength="19" placeholder="**** **** **** ****" pattern="\d{4} \d{4} \d{4} \d{4}" id="booking-card-number">
       </div>
       <div class="booking-info__user">
-        過期時間：<input type="tel">
+        過期時間：<input type="tel" maxlength="5" placeholder="MM/YY" pattern="\d{2}\/\d{2}" id="booking-card-exp-date">
       </div>
       <div class="booking-info__user">
-        驗證密碼：<input type="tel">
+        驗證密碼：<input type="tel" maxlength="3" placeholder="CVV" id="booking-card-cvv">
       </div>
     </div>
   </div>
