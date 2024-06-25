@@ -448,6 +448,12 @@ hr {
     pointer-events: none;
 }
 
+.attraction-detail__booking-date span {
+    font-weight: 400;
+    color: #ff5151b3;
+    margin-left: 10px;
+}
+
 .attraction-detail__booking-fee {
     font-weight: 400;
 }
@@ -504,6 +510,7 @@ hr {
     color: #FFFFFF;
     font-size: 19px;
     line-height: 16px;
+    cursor: pointer;
 }
 
 .attraction-information {

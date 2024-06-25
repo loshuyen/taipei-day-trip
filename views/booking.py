@@ -4,7 +4,7 @@ from views.attraction import AttractionBase
 
 class BookingBase(BaseModel):
     attraction: AttractionBase
-    date: date
+    date: str
     time: str
     price: int
 
@@ -13,6 +13,6 @@ class BookingInfo(BaseModel):
 
 class BookingNew(BaseModel):
     attractionId: int
-    date: date
+    date: str
     time: str
     price: int

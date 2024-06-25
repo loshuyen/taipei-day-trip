@@ -2,7 +2,7 @@ let userModel = {
     fetchAuthUser: async function() {
         let token = localStorage.getItem("token");
         let user = await fetch("/api/user/auth",{
-            headers: {Authorization: `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${token}`}
         })
         .then(response => response.json())
         .then(data => data.data);

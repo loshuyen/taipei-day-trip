@@ -143,3 +143,12 @@ document.querySelector(".sign__input[name='signup-password']").addEventListener(
         document.querySelector("#signup-btn").click();
     }
 });
+
+document.querySelector("#nav-booking-btn").addEventListener("click", async function() {
+    let user = await userModel.fetchAuthUser();
+    if (!user) {
+        document.querySelector("#signin-link").click();
+        return;
+    }
+    window.location.href = "/booking";
+});
