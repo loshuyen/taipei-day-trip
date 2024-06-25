@@ -336,10 +336,16 @@ hr {
 .attraction-detail__dot-bar {
     height: 12px;
     overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     display: flex;
     align-self: flex-end;
     justify-content: space-around;
+}
+
+.attraction-detail__dot-bar::-webkit-scrollbar {
+    display: none;
 }
 
 .attraction-detail__dot {
