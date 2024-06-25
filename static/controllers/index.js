@@ -1,7 +1,6 @@
 import attractionModel from "../models/attraction.js";
 import indexView from "../views/index.js";
 import mrtModel from "../models/mrt.js";
-import userModel from "../models/user.js";
 import * as auth from "../controllers/user.js";
 
 function scrollContent(name, direction) {
@@ -45,25 +44,13 @@ async function loadMrt() {
     indexView.renderAllMRT(mrts, searchByKeyword);
 }
 
-async function updateSignLink() {
-    let user = userModel.fetchAuthUser();
-    if (user) {
-        document.querySelector("#signin-link").style.display = "none";
-        document.querySelector("#signout-link").style.display = "block";
-    } else {
-        document.querySelector("#signin-link").style.display = "block";
-        document.querySelector("#signout-link").style.display = "none";
-    }
-}
-
 window.addEventListener("DOMContentLoaded", () => {
-    updateSignLink();
+    auth.updateSignLink();
 });
 
 window.addEventListener("load", async function() {
     loadMrt();
     loadAttraction(keyword);
-    auth.updateSignLink();
 });
 
 window.addEventListener("scroll", async function() {

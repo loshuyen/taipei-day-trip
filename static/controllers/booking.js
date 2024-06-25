@@ -29,7 +29,8 @@ window.addEventListener("DOMContentLoaded", async function() {
         window.location.href = "/";
         return;
     }
-    auth.updateSignLink();
+    document.querySelector("#signin-link").style.display = "none";
+    document.querySelector("#signout-link").style.display = "block";
     let bookingInfo = await bookingModel.fetchUnpaidBooking();
     bookingView.renderBooking(user.name, user.email, bookingInfo);
 });

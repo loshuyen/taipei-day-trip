@@ -2,7 +2,6 @@ import attractionModel from "../models/attraction.js";
 import attractionView from "../views/attraction.js";
 import * as auth from "../controllers/user.js";
 import userModel from "../models/user.js";
-import bookingModel from "../models/booking.js";
 import BookingModel from "../models/booking.js";
 
 let slideIndex = 1;
@@ -62,7 +61,6 @@ window.addEventListener("load", async() => {
     let data = await attractionModel.fetchAttractionById(attractionId);
     attractionView.renderSlideshow(data, showImageByDot);
     showImage(slideIndex);
-    auth.updateSignLink();
 });
 
 document.querySelector(".attraction-detail__booking-btn").addEventListener("click", async function() {
