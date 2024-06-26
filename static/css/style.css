@@ -55,6 +55,8 @@ body {
 
 hr {
     border-top: 0.5px solid #e8e8e8;
+    position: sticky;
+    top: 54px;
 }
 
 .header {
@@ -334,10 +336,16 @@ hr {
 .attraction-detail__dot-bar {
     height: 12px;
     overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     display: flex;
     align-self: flex-end;
     justify-content: space-around;
+}
+
+.attraction-detail__dot-bar::-webkit-scrollbar {
+    display: none;
 }
 
 .attraction-detail__dot {
@@ -446,6 +454,12 @@ hr {
     pointer-events: none;
 }
 
+.attraction-detail__booking-date span {
+    font-weight: 400;
+    color: #ff5151b3;
+    margin-left: 10px;
+}
+
 .attraction-detail__booking-fee {
     font-weight: 400;
 }
@@ -502,6 +516,7 @@ hr {
     color: #FFFFFF;
     font-size: 19px;
     line-height: 16px;
+    cursor: pointer;
 }
 
 .attraction-information {

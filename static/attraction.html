@@ -8,14 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
-  <script defer src="../static/scripts/attraction.js"></script>
-  <script defer src="../static/scripts/auth.js"></script>
+  <script defer src="../static/controllers/attraction.js" type="module"></script>
 </head>
 <body>
   <nav class="nav">
     <div class="nav__container">
         <p class="nav__title">台北一日遊</p>
-        <div class="nav__btn">預定行程</div>
+        <div class="nav__btn" id="nav-booking-btn">預定行程</div>
         <div class="nav__btn" id="signin-link">登入/註冊</div>
         <div class="nav__btn" id="signout-link" style="display: none">登出系統</div>
     </div>
@@ -26,12 +25,12 @@
       <div class="attraction-detail__slideshow">
       </div>
       <div class="attraction-detail__control">
-        <button class="attraction-detail__btn" onclick="nextImage(-1)">
+        <button class="attraction-detail__btn" name="left">
           <img src="../static/images/icon/btn_leftArrow.svg">
         </button>
         <div class="attraction-detail__dot-bar">
         </div>
-        <button class="attraction-detail__btn" onclick="nextImage(1)">
+        <button class="attraction-detail__btn" name="right">
           <img src="../static/images/icon/btn_rightArrow.svg">
         </button>
       </div>
@@ -49,9 +48,10 @@
         <div class="attraction-detail__booking-date">
           選擇日期：
           <label for="booking-date" class="attraction-detail__date-label">
-            <input type="date" name="booking-date" id="booking-date">
+            <input type="date" name="booking-date" id="booking-date" required>
           </label>
           <img src="../static/images/icon/icon_calendar.png" alt="">
+          <span></span>
         </div>
         <div class="attraction-detail__booking-period">
           選擇時間：
@@ -81,14 +81,14 @@
   <footer class="footer">
     <p>COPYRIGHT &copy; 2024 台北一日遊</p>
   </footer>
-  <div class="fullScreenMask" onclick="closeSignBox()">
+  <div class="fullScreenMask">
   </div>
   <div class="sign" id="signin-box">
     <div class="sign__header"></div>
     <div class="sign__title">
         登入會員帳號
     </div>
-    <button class="sign__close-btn" onclick="closeSignBox()">
+    <button class="sign__close-btn">
         <img src="../static/images/icon/icon_close.svg">
     </button>
     <input type="text" name="email" class="sign__input" placeholder="輸入電子信箱">
@@ -96,7 +96,7 @@
     <button class="sign__submit-btn" id="signin-btn">登入帳戶</button>
     <div id="signin-message"></div>
     <div class="sign__description">
-        還沒有帳戶？<span id="signup-link" onclick="openSignupBox()">點此註冊</span>
+        還沒有帳戶？<span id="signup-link">點此註冊</span>
     </div>
   </div>
   <div class="sign" id="signup-box">
@@ -104,7 +104,7 @@
     <div class="sign__title">
         註冊會員帳號
     </div>
-    <button class="sign__close-btn" onclick="closeSignBox()">
+    <button class="sign__close-btn">
         <img src="../static/images/icon/icon_close.svg">
     </button>
     <input type="text" name="signup-name" class="sign__input" placeholder="輸入姓名">
@@ -113,7 +113,7 @@
     <button class="sign__submit-btn" id="signup-btn">註冊新帳戶</button>
     <div id="signup-message"></div>
     <div class="sign__description">
-        已經有帳戶了？<span id="signin-link" onclick="openSigninBox()">點此登入</span>
+        已經有帳戶了？<span id="signin-link">點此登入</span>
     </div>
   </div>
 </body>
