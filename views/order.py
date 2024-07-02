@@ -36,4 +36,4 @@ class OrderPaidData(OrderBase):
     status: int
 
 class OrderPaid(BaseModel):
-    data: OrderPaidData
+    data: OrderPaidData | None

@@ -104,6 +104,25 @@
     border-radius: 5px;
 }
 
+.booking-info__credit {
+    color: #666666;
+    height: 38px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.booking-info__credit-container{
+    width: 200px;
+    height: 38px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    color: #000000;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+}
+
 .booking-info__note {
     font-weight: 700;
     line-height: 23px;

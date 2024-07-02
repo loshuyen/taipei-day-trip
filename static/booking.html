@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/booking.css">
+  <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
   <script defer src="../static/controllers/booking.js" type="module"></script>
+  <script defer src="../static/controllers/order.js" type="module"></script>
 </head>
 <body>
   <nav class="nav">
@@ -39,7 +41,7 @@
           聯絡信箱：<input type="text" id="booking-user-email">
         </div>
         <div class="booking-info__user">
-          手機號碼：<input type="text" id="booking-user-phoneNumber">
+          手機號碼：<input type="text" id="booking-user-phoneNumber" maxlength="10">
         </div>
         <div class="booking-info__note">
           請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
@@ -49,14 +51,17 @@
   <div class="booking">
     <div class="booking-info">
       <div class="booking-info__title">信用卡付款資訊</div>
-      <div class="booking-info__user">
-        卡片號碼：<input type="tel" maxlength="19" placeholder="**** **** **** ****" pattern="\d{4} \d{4} \d{4} \d{4}" id="booking-card-number">
+      <div class="booking-info__credit">
+        卡片號碼：
+        <div class="booking-info__credit-container" id="card-number"></div>
       </div>
-      <div class="booking-info__user">
-        過期時間：<input type="tel" maxlength="5" placeholder="MM/YY" pattern="\d{2}\/\d{2}" id="booking-card-exp-date">
+      <div class="booking-info__credit">
+        過期時間：
+        <div class="booking-info__credit-container" id="card-expiration-date"></div>
       </div>
-      <div class="booking-info__user">
-        驗證密碼：<input type="tel" maxlength="3" placeholder="CVV" id="booking-card-cvv">
+      <div class="booking-info__credit">
+        驗證密碼：
+        <div class="booking-info__credit-container" id="card-ccv"></div>
       </div>
     </div>
   </div>
