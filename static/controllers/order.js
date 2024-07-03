@@ -44,7 +44,12 @@ function onSubmit(event) {
 
     // 取得 TapPay Fields 的 status
     const tappayStatus = TPDirect.card.getTappayFieldsStatus()
-
+    
+    let phoneNumber = document.querySelector("#booking-user-phoneNumber").value;
+    if (phoneNumber === "" || !/^09[0-9]{8}$/.test(phoneNumber)) {
+        alert("請填入正確的手機號碼")
+        return;
+    }
     // 確認是否可以 getPrime
     if (tappayStatus.canGetPrime === false) {
         alert("請輸入正確的信用卡資訊");
@@ -54,11 +59,6 @@ function onSubmit(event) {
     // Get prime
     TPDirect.card.getPrime(async (result) => {
         if (result.status !== 0) {
-            return;
-        }
-        let phoneNumber = document.querySelector("#booking-user-phoneNumber").value;
-        if (phoneNumber === "" || !/^09[0-9]{8}$/.test(phoneNumber)) {
-            alert("請填入正確的手機號碼")
             return;
         }
         // alert('get prime 成功，prime: ' + result.card.prime)
