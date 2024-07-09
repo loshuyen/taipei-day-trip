@@ -99,6 +99,8 @@
     color: #666666;
     height: 38px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .booking-info__user input{
@@ -110,6 +112,19 @@
     color: #000000;
     border: 1px solid #e8e8e8;
     border-radius: 5px;
+}
+.booking-info__check--ok {
+    margin-left: -25px;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(99%) sepia(78%) saturate(751%) hue-rotate(70deg) brightness(97%) contrast(92%);
+}
+
+.booking-info__check--fail {
+    margin-left: -25px;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(90%) sepia(4%) saturate(114%) hue-rotate(114deg) brightness(100%) contrast(90%);
 }
 
 .booking-info__credit {
@@ -192,7 +207,7 @@
     } 
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 810px) {
     .booking-greeting {
         padding: 0 10px;
     }

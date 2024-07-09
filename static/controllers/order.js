@@ -46,8 +46,10 @@ function onSubmit(event) {
     const tappayStatus = TPDirect.card.getTappayFieldsStatus()
     
     let phoneNumber = document.querySelector("#booking-user-phoneNumber").value;
-    if (phoneNumber === "" || !/^09[0-9]{8}$/.test(phoneNumber)) {
-        alert("請填入正確的手機號碼")
+    let email = document.querySelector("#booking-user-email").value;
+    let name = document.querySelector("#booking-user-name").value;
+    if (phoneNumber === "" || !/^09[0-9]{8}$/.test(phoneNumber) || email === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || name === "") {
+        alert("請填入正確的聯絡資訊")
         return;
     }
     // 確認是否可以 getPrime

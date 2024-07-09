@@ -1,9 +1,9 @@
 import userModel from "../models/user.js";
 import userView from "../views/user.js";
 
-let signinBox = document.querySelector("#signin-box");
-let signupBox = document.querySelector("#signup-box");
-let mask = document.querySelector(".fullScreenMask");
+let signinBox;
+let signupBox;
+let mask;
 
 export function closeSignBox() {
     document.querySelector("#signup-message").innerHTML = "";
@@ -17,6 +17,11 @@ export function closeSignBox() {
     }
     mask.style.display = "none";
     document.body.style.overflow = '';
+    document.querySelector("#sign__input-password-check").style.display = "none";
+    document.querySelector("#sign__input-email-check").style.display = "none";
+    document.querySelector("#signup-name-check").style.display = "none";
+    document.querySelector("#signup-email-check").style.display = "none";
+    document.querySelector("#signup-password-check").style.display = "none";
 }
 
 export function openSigninBox() {
@@ -96,59 +101,118 @@ export function signOut() {
     window.location.reload();
 }
 
-document.querySelectorAll("#signin-link").forEach((element) => {
-    element.addEventListener("click", openSigninBox)
-});
+window.addEventListener("DOMContentLoaded", function() {
+    let signElement = userView.createSignElement();
+    document.body.innerHTML += signElement;
 
-document.querySelector("#signup-link").addEventListener("click", openSignupBox);
+    document.querySelectorAll("#signin-link").forEach((element) => {
+        element.addEventListener("click", openSigninBox)
+    });
+    
+    document.querySelector("#signup-link").addEventListener("click", openSignupBox);
+    
+    document.querySelector("#signin-btn").addEventListener("click", signIn);
+    
+    document.querySelector("#signout-link").addEventListener("click", signOut);
+    
+    document.querySelector("#signup-btn").addEventListener("click", signUp);
+    
+    document.querySelectorAll(".sign__close-btn").forEach((element) => {
+        element.addEventListener("click", closeSignBox);
+    });
+    
+    document.querySelector(".fullScreenMask").addEventListener("click", closeSignBox);
+    
+    document.querySelector(".sign__input[name='email']").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("#signin-btn").click();
+        }
+    });
+    
+    document.querySelector(".sign__input[name='password']").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("#signin-btn").click();
+        }
+    });
+    
+    document.querySelector(".sign__input[name='signup-name']").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("#signup-btn").click();
+        }
+    });
+    
+    document.querySelector(".sign__input[name='signup-email']").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("#signup-btn").click();
+        }
+    });
+    
+    document.querySelector(".sign__input[name='signup-password']").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("#signup-btn").click();
+        }
+    });
+    
+    document.querySelector("#nav-booking-btn").addEventListener("click", async function() {
+        let user = await userModel.fetchAuthUser();
+        if (!user) {
+            document.querySelector("#signin-link").click();
+            return;
+        }
+        window.location.href = "/booking";
+    });
 
-document.querySelector("#signin-btn").addEventListener("click", signIn);
+    document.querySelector(".nav__title").addEventListener("click", function() {
+        window.location.href = "/";
+    });
 
-document.querySelector("#signout-link").addEventListener("click", signOut);
+    document.querySelector("#sign__input-email").addEventListener("input", function(event) {
+        let input = event.currentTarget.value;
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+            document.querySelector("#sign__input-email-check").style.display = "block";
+        } else {
+            document.querySelector("#sign__input-email-check").style.display = "none";
+        }
+    });
 
-document.querySelector("#signup-btn").addEventListener("click", signUp);
+    document.querySelector("#sign__input-password").addEventListener("input", function(event) {
+        let input = event.currentTarget.value;
+        if (input !== "") {
+            document.querySelector("#sign__input-password-check").style.display = "block";
+        } else {
+            document.querySelector("#sign__input-password-check").style.display = "none";
+        }
+    });
 
-document.querySelectorAll(".sign__close-btn").forEach((element) => {
-    element.addEventListener("click", closeSignBox);
-});
+    document.querySelector("#signup-name").addEventListener("input", function(event) {
+        let input = event.currentTarget.value;
+        if (input !== "") {
+            document.querySelector("#signup-name-check").style.display = "block";
+        } else {
+            document.querySelector("#signup-name-check").style.display = "none";
+        }
+    });
 
-document.querySelector(".fullScreenMask").addEventListener("click", closeSignBox);
+    document.querySelector("#signup-email").addEventListener("input", function(event) {
+        let input = event.currentTarget.value;
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+            document.querySelector("#signup-email-check").style.display = "block";
+        } else {
+            document.querySelector("#signup-email-check").style.display = "none";
+        }
+    });
 
-document.querySelector(".sign__input[name='email']").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector("#signin-btn").click();
-    }
-});
+    document.querySelector("#signup-password").addEventListener("input", function(event) {
+        let input = event.currentTarget.value;
+        if (input !== "") {
+            document.querySelector("#signup-password-check").style.display = "block";
+        } else {
+            document.querySelector("#signup-password-check").style.display = "none";
+        }
+    });
 
-document.querySelector(".sign__input[name='password']").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector("#signin-btn").click();
-    }
-});
-
-document.querySelector(".sign__input[name='signup-name']").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector("#signup-btn").click();
-    }
-});
-
-document.querySelector(".sign__input[name='signup-email']").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector("#signup-btn").click();
-    }
-});
-
-document.querySelector(".sign__input[name='signup-password']").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector("#signup-btn").click();
-    }
-});
-
-document.querySelector("#nav-booking-btn").addEventListener("click", async function() {
-    let user = await userModel.fetchAuthUser();
-    if (!user) {
-        document.querySelector("#signin-link").click();
-        return;
-    }
-    window.location.href = "/booking";
+    signinBox = document.querySelector("#signin-box");
+    signupBox = document.querySelector("#signup-box");
+    mask = document.querySelector(".fullScreenMask");
+    
 });
