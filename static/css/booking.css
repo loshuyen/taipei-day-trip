@@ -31,10 +31,18 @@
     
 }
 
-.booking__schedule__img {
+.booking__schedule__img-container {
     width: 250px;
     height: 200px;
+    
+    position: relative;
+}
+
+.booking__schedule__img-container img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: none;
 }
 
 .booking-content {
@@ -188,7 +196,7 @@
     .booking-greeting {
         padding: 0 10px;
     }
-    .booking__schedule__img, .booking-content {
+    .booking__schedule__img-container, .booking-content {
         width: 100%;
     }
     .booking-content {

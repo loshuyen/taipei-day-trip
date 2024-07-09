@@ -1,11 +1,20 @@
+import indexView from "./index.js";
+
 let attractionView = {
     renderSlideshow: function(data, handleClick) {
         let slideShow = document.querySelector(".attraction-detail__slideshow");
         let dotBar = document.querySelector(".attraction-detail__dot-bar");
+        let loadingIcon = indexView.createLoadingIconElement();
         if (data.images.length === 0) {
             let img = document.createElement("img");
             img.className = "attraction-detail__img";
             img.src = "../../static/images/default_img.png";
+            img.display = "none";
+            img.onload = function() {
+                loadingIcon.style.display = "none";
+                img.style.display = "block";
+            };
+            slideShow.appendChild(loadingIcon);
             slideShow.appendChild(img);
         } else {
             let i = 1;
@@ -13,6 +22,14 @@ let attractionView = {
                 const img = document.createElement("img");
                 img.className = "attraction-detail__img";
                 img.src = img_url;
+                if (i === 1) {
+                    img.display = "none";
+                    img.onload = function() {
+                        loadingIcon.style.display = "none";
+                        img.style.display = "block";
+                    };
+                    slideShow.appendChild(loadingIcon);
+                }
                 slideShow.appendChild(img);
                 const dotButton = document.createElement("button");
                 dotButton.className = "attraction-detail__dot";

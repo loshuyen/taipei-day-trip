@@ -46,9 +46,6 @@ async function loadMrt() {
 
 window.addEventListener("DOMContentLoaded", () => {
     auth.updateSignLink();
-});
-
-window.addEventListener("load", async function() {
     loadMrt();
     loadAttraction(keyword);
 });
