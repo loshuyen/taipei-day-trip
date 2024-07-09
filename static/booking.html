@@ -36,12 +36,15 @@
         <div class="booking-info__title">您的聯絡資訊</div>
         <div class="booking-info__user">
           聯絡姓名：<input type="text" id="booking-user-name">
+          <img src="../static/images/icon/icon_checked.svg" id="booking-user-name-check" class="booking-info__check--ok">
         </div>
         <div class="booking-info__user">
           聯絡信箱：<input type="text" id="booking-user-email">
+          <img src="../static/images/icon/icon_checked.svg" id ="booking-user-email-check" class="booking-info__check--ok">
         </div>
         <div class="booking-info__user">
           手機號碼：<input type="text" id="booking-user-phoneNumber" maxlength="10">
+          <img src="../static/images/icon/icon_checked.svg" id="booking-user-phoneNumber-check" class="booking-info__check--fail">
         </div>
         <div class="booking-info__note">
           請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
@@ -72,40 +75,5 @@
   <footer class="booking__footer">
     <p>COPYRIGHT &copy; 2024 台北一日遊</p>
   </footer>
-  <div class="fullScreenMask">
-  </div>
-  <div class="sign" id="signin-box">
-      <div class="sign__header"></div>
-      <div class="sign__title">
-          登入會員帳號
-      </div>
-      <button class="sign__close-btn">
-          <img src="../static/images/icon/icon_close.svg">
-      </button>
-      <input type="text" name="email" class="sign__input" placeholder="輸入電子信箱">
-      <input type="password" name="password" class="sign__input" placeholder="輸入密碼">
-      <button class="sign__submit-btn" id="signin-btn">登入帳戶</button>
-      <div id="signin-message"></div>
-      <div class="sign__description">
-          還沒有帳戶？<span id="signup-link">點此註冊</span>
-      </div>
-  </div>
-  <div class="sign" id="signup-box">
-      <div class="sign__header"></div>
-      <div class="sign__title">
-          註冊會員帳號
-      </div>
-      <button class="sign__close-btn">
-          <img src="../static/images/icon/icon_close.svg">
-      </button>
-      <input type="text" name="signup-name" class="sign__input" placeholder="輸入姓名">
-      <input type="text" name="signup-email" class="sign__input" placeholder="輸入電子信箱">
-      <input type="password" name="signup-password" class="sign__input" placeholder="輸入密碼">
-      <button class="sign__submit-btn" id="signup-btn">註冊新帳戶</button>
-      <div id="signup-message"></div>
-      <div class="sign__description">
-          已經有帳戶了？<span id="signin-link">點此登入</span>
-      </div>
-  </div>
 </body>
 </html>
