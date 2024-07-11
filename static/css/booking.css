@@ -184,6 +184,14 @@
     top: 42px;
 }
 
+.booking-total__submit-btn:hover {
+    box-shadow: 4px 4px 0 rgba(68, 136, 153, 0.5);
+}
+
+.booking-total__submit-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 4px 4px 0 rgba(68, 136, 153, 0);
+}
 .booking__footer {
     width: 100%;
     height: 100px;
