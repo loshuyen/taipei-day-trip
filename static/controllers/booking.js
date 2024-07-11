@@ -1,9 +1,7 @@
 import bookingModel from "../models/booking.js";
 import bookingView from "../views/booking.js";
 import userModel from "../models/user.js";
-import * as auth from "../controllers/user.js";
-import config from "./config.js";
-
+import {addSignEvents} from "../controllers/user.js";
 
 window.addEventListener("DOMContentLoaded", async function() {
     let user = await userModel.fetchAuthUser();
@@ -15,6 +13,8 @@ window.addEventListener("DOMContentLoaded", async function() {
     document.querySelector("#signout-link").style.display = "block";
     let bookingInfo = await bookingModel.fetchUnpaidBooking();
     bookingView.renderBooking(user.name, user.email, bookingInfo);
+
+    addSignEvents();
 
     document.querySelector("#booking-user-name").addEventListener("input", function(event) {
         let input = event.currentTarget.value;

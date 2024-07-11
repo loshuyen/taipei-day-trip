@@ -1,6 +1,6 @@
 import attractionModel from "../models/attraction.js";
 import attractionView from "../views/attraction.js";
-import * as auth from "../controllers/user.js";
+import {updateSignLink, addSignEvents} from "../controllers/user.js";
 import userModel from "../models/user.js";
 import BookingModel from "../models/booking.js";
 
@@ -34,10 +34,12 @@ function showImageByDot() {
     showImage(slideIndex);
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-    auth.updateSignLink();
+let user;
+
+window.addEventListener("DOMContentLoaded", async () => {
+    user = await updateSignLink();
+    addSignEvents();
     document.querySelector(".attraction-detail__booking-btn").addEventListener("click", async function() {
-        let user = await userModel.fetchAuthUser();
         if (!user) {
             document.querySelector("#signin-link").click();
             return;

@@ -1,5 +1,5 @@
 import userModel from "../models/user.js";
-import * as auth from "../controllers/user.js";
+import {addSignEvents} from "../controllers/user.js";
 import orderModel from "../models/order.js";
 import orderView from "../views/order.js";
 
@@ -18,6 +18,8 @@ window.addEventListener("DOMContentLoaded", async function() {
     document.querySelector("#signout-link").style.display = "block";
     document.querySelector(".booking-greeting span").textContent = `${user.name}，您的訂單資訊如下：`;
     orderView.renderOrder(data);
+
+    addSignEvents();
 
     document.querySelector(".thankyou__show-more").addEventListener("click", function(event) {
         let value = event.currentTarget.textContent;
