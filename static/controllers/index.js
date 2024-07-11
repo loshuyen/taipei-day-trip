@@ -48,6 +48,22 @@ window.addEventListener("DOMContentLoaded", () => {
     auth.updateSignLink();
     loadMrt();
     loadAttraction(keyword);
+
+    document.querySelector(".header__search-btn").addEventListener("click", searchByKeyword);
+
+    document.querySelector(".mrt-bar__btn[name='left']").addEventListener("click", function() {
+        scrollContent(".mrt-bar__list", "left");
+    });
+
+    document.querySelector(".mrt-bar__btn[name='right']").addEventListener("click", function() {
+    scrollContent(".mrt-bar__list", "right");
+
+    document.querySelector("#keyword").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector(".header__search-btn").click();
+        }
+    });
+});
 });
 
 window.addEventListener("scroll", async function() {
@@ -58,22 +74,3 @@ window.addEventListener("scroll", async function() {
     }
 });
 
-document.querySelector(".header__search-btn").addEventListener("click", searchByKeyword);
-
-document.querySelector(".mrt-bar__btn[name='left']").addEventListener("click", function() {
-    scrollContent(".mrt-bar__list", "left");
-});
-
-document.querySelector(".mrt-bar__btn[name='right']").addEventListener("click", function() {
-    scrollContent(".mrt-bar__list", "right");
-});
-
-document.querySelector(".nav__title").addEventListener("click", function() {
-    window.location.reload();
-});
-
-document.querySelector("#keyword").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector(".header__search-btn").click();
-    }
-});

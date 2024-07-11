@@ -34,25 +34,57 @@ function showImageByDot() {
     showImage(slideIndex);
 }
 
-document.querySelector(".attraction-detail__btn[name='left']").addEventListener("click", () => {
-    nextImage(-1);
-});
-
-document.querySelector(".attraction-detail__btn[name='right']").addEventListener("click", () => {
-    nextImage(1);
-});
-
-document.querySelector(".attraction-detail__booking-period").addEventListener("change", (event) => {
-    let value = event.target.value;
-    attractionView.renderBookingFee(value);
-});
-
-document.querySelector(".nav__title").addEventListener("click", () => {
-    window.location.href = "/";
-})
-
 window.addEventListener("DOMContentLoaded", () => {
     auth.updateSignLink();
+    document.querySelector(".attraction-detail__booking-btn").addEventListener("click", async function() {
+        let user = await userModel.fetchAuthUser();
+        if (!user) {
+            document.querySelector("#signin-link").click();
+            return;
+        }
+        let attractionId = window.location.pathname.split("/")[2];
+        let date = document.querySelector("#booking-date").value;
+        let periods = document.getElementsByName("booking-period");
+        let time;
+        for (let period of periods) {
+            if (period.checked) {
+                time = period.value;
+                break;
+            }
+        }
+        let price = document.querySelector(".attraction-detail__booking-fee").textContent.split(" ")[1];
+        if (!date) {
+            document.querySelector(".attraction-detail__booking-date span").textContent = "日期不能為空白";
+            return;
+        }
+        let bookingInfo = {attractionId, date, time, price};
+        console.log(bookingInfo);
+        let isCreateSuccess = await BookingModel.fetchCreateBooking(bookingInfo);
+        if (isCreateSuccess) {
+            window.location.href = "/booking";
+        }
+    });
+    
+    document.querySelector(".attraction-detail__booking-date label").addEventListener("click", function() {
+        document.querySelector(".attraction-detail__booking-date span").textContent = "";
+    });
+
+    document.querySelector(".attraction-detail__btn[name='left']").addEventListener("click", () => {
+        nextImage(-1);
+    });
+    
+    document.querySelector(".attraction-detail__btn[name='right']").addEventListener("click", () => {
+        nextImage(1);
+    });
+    
+    document.querySelector(".attraction-detail__booking-period").addEventListener("change", (event) => {
+        let value = event.target.value;
+        attractionView.renderBookingFee(value);
+    });
+    
+    document.querySelector(".nav__title").addEventListener("click", () => {
+        window.location.href = "/";
+    });
 });
 
 window.addEventListener("load", async() => {
@@ -63,35 +95,3 @@ window.addEventListener("load", async() => {
     showImage(slideIndex);
 });
 
-document.querySelector(".attraction-detail__booking-btn").addEventListener("click", async function() {
-    let user = await userModel.fetchAuthUser();
-    if (!user) {
-        document.querySelector("#signin-link").click();
-        return;
-    }
-    let attractionId = window.location.pathname.split("/")[2];
-    let date = document.querySelector("#booking-date").value;
-    let periods = document.getElementsByName("booking-period");
-    let time;
-    for (let period of periods) {
-        if (period.checked) {
-            time = period.value;
-            break;
-        }
-    }
-    let price = document.querySelector(".attraction-detail__booking-fee").textContent.split(" ")[1];
-    if (!date) {
-        document.querySelector(".attraction-detail__booking-date span").textContent = "日期不能為空白";
-        return;
-    }
-    let bookingInfo = {attractionId, date, time, price};
-    console.log(bookingInfo);
-    let isCreateSuccess = await BookingModel.fetchCreateBooking(bookingInfo);
-    if (isCreateSuccess) {
-        window.location.href = "/booking";
-    }
-});
-
-document.querySelector(".attraction-detail__booking-date label").addEventListener("click", function() {
-    document.querySelector(".attraction-detail__booking-date span").textContent = "";
-});
