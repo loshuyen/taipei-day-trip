@@ -2,6 +2,7 @@ import bookingModel from "../models/booking.js";
 import bookingView from "../views/booking.js";
 import userModel from "../models/user.js";
 import {addSignEvents} from "../controllers/user.js";
+import orderSubmit from "../controllers/order.js";
 
 window.addEventListener("DOMContentLoaded", async function() {
     let user = await userModel.fetchAuthUser();
@@ -11,8 +12,8 @@ window.addEventListener("DOMContentLoaded", async function() {
     }
     document.querySelector("#signin-link").style.display = "none";
     document.querySelector("#signout-link").style.display = "block";
-    let bookingInfo = await bookingModel.fetchUnpaidBooking();
-    bookingView.renderBooking(user.name, user.email, bookingInfo);
+    let unpaidBooking = await bookingModel.fetchUnpaidBooking();
+    bookingView.renderBooking(user.name, user.email, unpaidBooking);
 
     addSignEvents();
 
@@ -43,6 +44,8 @@ window.addEventListener("DOMContentLoaded", async function() {
         }
     });
 
-    
+    document.querySelector(".booking-total__submit-btn").addEventListener("click", function() {
+        orderSubmit(unpaidBooking);
+    });
 });
 
