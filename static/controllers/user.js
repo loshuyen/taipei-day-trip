@@ -264,5 +264,13 @@ export function addSignEvents() {
         if (menuDisplay === "block") {
             triggerEvent(document, "close-menu", menuDisplay);
         }
-    })
+    });
+
+    document.querySelector("#member-record").addEventListener("click", function() {
+        window.location.href = "/record";
+    });
+
+    document.querySelector("#member-profile").addEventListener("click", function() {
+        window.location.href = "/profile";
+    });
 }

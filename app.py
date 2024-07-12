@@ -25,3 +25,9 @@ async def booking(request: Request):
 @app.get("/thankyou", include_in_schema=False)
 async def thankyou(request: Request):
 	return FileResponse("./static/thankyou.html", media_type="text/html")
+@app.get("/record", include_in_schema=False)
+async def record(request: Request):
+	return FileResponse("./static/record.html", media_type="text/html")
+@app.get("/profile", include_in_schema=False)
+async def profile(request: Request):
+	return FileResponse("./static/profile.html", media_type="text/html")
