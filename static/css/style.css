@@ -53,6 +53,35 @@ body {
     cursor: pointer;
 }
 
+.nav__member {
+    height: 34px;
+    padding: 10px;
+    color: #666666;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav__menu {
+    margin-top: 20px;
+    background-color: #fff;
+    min-width: 120px;
+    position: absolute;
+    right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+}
+
+.nav__menu-item {
+    padding: 17px;
+}
+
+.nav__menu-item:hover {
+    background-color: #AADDEE
+    ;
+
+}
+
 hr {
     border-top: 0.5px solid #e8e8e8;
     position: sticky;

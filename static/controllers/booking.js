@@ -1,17 +1,16 @@
 import bookingModel from "../models/booking.js";
 import bookingView from "../views/booking.js";
-import userModel from "../models/user.js";
 import {addSignEvents} from "../controllers/user.js";
 import orderSubmit from "../controllers/order.js";
+import { updateSignLink } from "../controllers/user.js";
 
+let user;
 window.addEventListener("DOMContentLoaded", async function() {
-    let user = await userModel.fetchAuthUser();
+    user = await updateSignLink();
     if (!user) {
         window.location.href = "/";
         return;
     }
-    document.querySelector("#signin-link").style.display = "none";
-    document.querySelector("#signout-link").style.display = "block";
     let unpaidBooking = await bookingModel.fetchUnpaidBooking();
     bookingView.renderBooking(user.name, user.email, unpaidBooking);
 

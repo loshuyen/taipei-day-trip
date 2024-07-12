@@ -16,6 +16,8 @@ const signInLink = document.querySelector("#signin-link");
 const signOutLink = document.querySelector("#signout-link");
 const signInBtn = document.querySelector("#signin-btn");
 const signUpBtn = document.querySelector("#signup-btn");
+const memberLink = document.querySelector(".nav__member");
+const memberMenu = document.querySelector(".nav__menu");
 
 function closeSignBox() {
     signUpMessage.innerHTML = "";
@@ -58,10 +60,10 @@ export async function updateSignLink() {
     let user = await userModel.fetchAuthUser();
     if (user) {
         signInLink.style.display = "none";
-        signOutLink.style.display = "block";
+        memberLink.style.display = "block";
     } else {
         signInLink.style.display = "block";
-        signOutLink.style.display = "none";
+        memberLink.style.display = "none";
     }
     return user;
 }
@@ -120,6 +122,22 @@ function signOut() {
     window.location.reload();
 }
 
+function toggleMenu(event) {
+    const menuDisplay = memberMenu.style.display;
+    if (menuDisplay === "none" || menuDisplay === "") {
+        triggerEvent(document, "open-menu", menuDisplay);
+    } else {
+        triggerEvent(document, "close-menu", menuDisplay);
+    }
+    event.stopPropagation();
+
+}
+
+function triggerEvent(element, eventType, eventDetail) {
+    const event = new CustomEvent(eventType, {detail: eventDetail});
+    element.dispatchEvent(event);
+}
+
 let lookupBookingBtnPressed = false;
 
 export function addSignEvents() {
@@ -134,7 +152,9 @@ export function addSignEvents() {
     signOutLink.addEventListener("click", signOut);
     
     signUpBtn.addEventListener("click", signUp);
-    
+
+    memberLink.addEventListener("click", toggleMenu);
+
     document.querySelectorAll(".sign__close-btn").forEach((element) => {
         element.addEventListener("click", closeSignBox);
     });
@@ -229,4 +249,20 @@ export function addSignEvents() {
             signUpPasswordCheck.style.display = "none";
         }
     });
+
+    document.addEventListener("open-menu", function() {
+        memberMenu.style.display = "block";
+    });
+
+    document.addEventListener("close-menu", function() {
+        memberMenu.style.display = "none";
+    });
+
+    document.addEventListener("click", function(event) {
+        event.stopPropagation();
+        const menuDisplay = memberMenu.style.display;
+        if (menuDisplay === "block") {
+            triggerEvent(document, "close-menu", menuDisplay);
+        }
+    })
 }

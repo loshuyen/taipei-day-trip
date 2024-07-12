@@ -1,21 +1,21 @@
-import userModel from "../models/user.js";
 import {addSignEvents} from "../controllers/user.js";
 import orderModel from "../models/order.js";
 import orderView from "../views/order.js";
+import { updateSignLink } from "../controllers/user.js";
 
 let url = new URL(window.location.href);
 let params = new URLSearchParams(url.search);
 let orderNumber = params.get("number");
+let user;
 
 window.addEventListener("DOMContentLoaded", async function() {
-    let user = await userModel.fetchAuthUser();
+    user = await updateSignLink();
     let data = await orderModel.fetchOrderByNumber(orderNumber);
     if (!user || !data) {
         window.location.href = "/";
         return;
     }
-    document.querySelector("#signin-link").style.display = "none";
-    document.querySelector("#signout-link").style.display = "block";
+
     document.querySelector(".booking-greeting span").textContent = `${user.name}，您的訂單資訊如下：`;
     orderView.renderOrder(data);
 
