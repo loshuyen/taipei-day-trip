@@ -78,11 +78,17 @@ async function signIn() {
     let data = await response.json();
     if (response.status === 200) {
         localStorage.setItem("token", data.token);
-        window.location.reload();
+        // window.location.reload();
     } else if (response.status === 422) {
         userView.renderMessage("Email格式錯誤", "signin-message");
     } else {
         userView.renderMessage(data.message, "signin-message");
+    }
+    if (lookupBookingBtnPressed) {
+        lookupBookingBtnPressed = false;
+        window.location.href = "/booking";
+    } else {
+        window.location.reload();
     }
 }
 
@@ -113,6 +119,8 @@ function signOut() {
     localStorage.clear();
     window.location.reload();
 }
+
+let lookupBookingBtnPressed = false;
 
 export function addSignEvents() {
     document.querySelectorAll("#signin-link").forEach((element) => {
@@ -165,6 +173,7 @@ export function addSignEvents() {
     
     document.querySelector("#nav-booking-btn").addEventListener("click", async function() {
         let user = await userModel.fetchAuthUser();
+        lookupBookingBtnPressed = lookupBookingBtnPressed ? false : true;
         if (!user) {
             signInLink.click();
             return;
