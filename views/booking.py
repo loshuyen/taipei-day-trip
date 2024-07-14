@@ -17,9 +17,13 @@ class BookingNew(BaseModel):
     time: str
     price: int
 
-class Booking(BaseModel):
+class AttBase(BaseModel):
     id: int
-    attraction_name: str
+    name: str
+    address: str
+
+class Booking(BaseModel):
+    attraction: AttBase
     date: str
     time: str
     price: int

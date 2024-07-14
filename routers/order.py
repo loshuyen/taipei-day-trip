@@ -22,6 +22,8 @@ def create_new_order(order: Order, user: Annotated[UserOutput, Depends(get_auth_
       OrderModel.create_order(
           order_id=order_number,
           attraction_id=order.order.trip.attraction.id, 
+          attraction_name=order.order.trip.attraction.name,
+          attraction_address=order.order.trip.attraction.address,
           user_id=user["id"], 
           booking_id=booking_id,
           date=order.order.trip.date, 
@@ -67,7 +69,8 @@ def create_new_order(order: Order, user: Annotated[UserOutput, Depends(get_auth_
           return {"data": response_data}
       else:
           return JSONResponse(status_code=400, content={"error": True, "message": "訂單建立失敗，輸入不正確或其他原因"})
-    except:
+    except Exception as e:
+          print(e)
           return JSONResponse(status_code=500, content={"error": True, "message": "伺服器內部錯誤"})
     
 @router.get("/api/order")

@@ -10,7 +10,9 @@ let recordView = {
             const container = document.createElement("div");
             container.className = "record__container";
             container.innerHTML = `
-            <div class="record__order-number">${booking.attraction_name}</div>
+            <div class="record__order-attraction">
+                <a href="/attraction/${booking.attraction.id}">${booking.attraction.name}</a>
+            </div>
             <div class="record__order-date">${booking.date}</div>
             <div class="record__order-status">${booking.time}</div>
             <div class="record__order-price">${booking.price}</div>
@@ -44,11 +46,15 @@ let recordView = {
                 </div>
             `
             detail.className = "record__detail";
-            detail.id = `booking-id-${order.booking_id}}`;
+            detail.id = `booking-id-${order.booking.id}}`;
             detail.innerHTML = `
-                <div class="record__order-date">假的資料</div>
-                <div class="record__order-date">假的資料</div>
-                <div class="record__order-date">假的資料</div>
+                <div class="record__detail-content"><span>景點：</span>${order.booking.attraction.name}</div>
+                <div class="record__detail-content"><span>地址：</span>${order.booking.attraction.address}</div>
+                <div class="record__detail-content"><span>日期：</span>${order.booking.date}</div>
+                <div class="record__detail-content"><span>時段：</span>${order.booking.time}</div>
+                <div class="record__detail-content"><span>聯絡人：</span>${order.contact.name}</div>
+                <div class="record__detail-content"><span>Email：</span>${order.contact.email}</div>
+                <div class="record__detail-content"><span>聯絡電話：</span>${order.contact.phone}</div>
             `;
             orderRecord.append(container);
             orderRecord.append(detail);
