@@ -1,11 +1,12 @@
 from db_config import pool
+from datetime import datetime
 
 class OrderModel:
-    def create_order(order_id, attraction_id, user_id, date, time, price, is_paid, contact_name, contact_email, contact_phone):
+    def create_order(order_id, attraction_id, user_id, booking_id, date, time, price, is_paid, contact_name, contact_email, contact_phone):
         try:
             db = pool.get_connection()
             cursor = db.cursor()
-            cursor.execute("INSERT INTO orders (id, attraction_id, user_id, date, time, price, is_paid, contact_name, contact_email, contact_phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (order_id, attraction_id, user_id, date, time, price, is_paid, contact_name, contact_email, contact_phone))
+            cursor.execute("INSERT INTO orders (id, attraction_id, user_id, booking_id, date, time, price, is_paid, contact_name, contact_email, contact_phone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (order_id, attraction_id, user_id, booking_id, date, time, price, is_paid, contact_name, contact_email, contact_phone))
             db.commit()
         finally:
             cursor.close()
@@ -60,6 +61,30 @@ class OrderModel:
                     }
                     }
             return data
+        except:
+            return {"data": None}
+        finally:
+            cursor.close()
+            db.close()
+
+    def get_all_orders(user_id):
+        try:
+            db = pool.get_connection()
+            cursor = db.cursor()
+            cursor.execute("SELECT id, price, is_paid, created_time, booking_id FROM orders WHERE user_id=%s ORDER BY created_time DESC;", (user_id, ))
+            orders = cursor.fetchall()
+            data = []
+            for order in orders:
+                data.append(
+                    {
+                        "number": order[0],
+                        "price": order[1],
+                        "status": order[2],
+                        "created_time": order[3].strftime("%Y-%m-%d %H:%M:%S"),
+                        "booking_id": order[4]
+                    }
+                )
+            return {"data": data}
         except:
             return {"data": None}
         finally:

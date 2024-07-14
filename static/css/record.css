@@ -1,0 +1,80 @@
+.record {
+    width: 1200px;
+    margin: 0 auto;
+    color: #666666;
+    font-weight: 500;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.record__category {
+    text-align: center;
+    position: relative;
+    padding: 10px 0;
+    width: 100px;
+    cursor: pointer;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+}
+
+.record__category:hover {
+    border-bottom: 2px solid #448899;
+}
+
+#booking-record {
+    border-bottom: 2px solid #448899;
+}
+
+.record__booking, .record__order {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.record__order {
+    display: none;
+}
+
+.record__container {
+    display: flex;
+    align-items: center;
+}
+
+.record__detail {
+    display: flex;
+    align-items: center;
+    display: none;
+}
+
+.record__title {
+    display: flex;
+    align-items: center;
+    color: #448899;
+    font-weight: 700;
+}
+
+.record__order-number {
+    padding: 15px;
+    width: 180px;
+    line-height: 1.5;
+}
+
+.record__order-price {
+    padding: 15px;
+    width: 70px;
+}
+
+.record__order-status {
+    padding: 15px;
+    width: 100px;
+}
+
+.record__order-time {
+    padding: 15px;
+    width: 180px;
+}
+
+.record__order-date {
+    padding: 15px;
+    width: 120px;
+}

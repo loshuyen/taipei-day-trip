@@ -32,7 +32,12 @@
   <div class="booking-greeting">
     您好，<span></span>，待預定的行程如下：
   </div>
-  <div class="booking__no-record">目前沒有任何待預訂的行程</div>
+  <div class="booking__no-record">
+    目前沒有任何待預訂的行程
+  </div>
+  <div class="booking__no-record">
+    <a href="/">找行程</a>
+  </div>
   <div class="booking">
     <div class="booking__schedule">
     </div>
@@ -131,5 +136,19 @@
           已經有帳戶了？<span id="signin-link">點此登入</span>
       </div>
   </div>
+  <div class="booking__loading-effect">
+    <svg width="70" height="50" viewBox="0 0 70 50" xmlns="http://www.w3.org/2000/svg" fill="#448899">    
+      <circle cx="15" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="35" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.1s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="55" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.2s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+  </div>
+  <div class="booking__loading-background"></div>
 </body>
 </html>

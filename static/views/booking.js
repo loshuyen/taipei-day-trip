@@ -9,7 +9,9 @@ let bookingView = {
                 element.style.display = "none";
             });
             document.querySelector(".booking-total").style.display = "none";
-            document.querySelector(".booking__no-record").style.display = "flex";
+            document.querySelectorAll(".booking__no-record").forEach(element => {
+                element.style.display = "flex";
+            });
             return;
         }
         let {attraction, date, time, price} = bookingInfo;

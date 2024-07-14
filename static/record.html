@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/thankyou.css">
+  <link rel="stylesheet" href="../static/css/record.css">
   <script defer src="../static/controllers/record.js" type="module"></script>
 </head>
 <body>
@@ -28,7 +29,27 @@
     </div>
   </nav>
   <hr>
-  <h1>ORDERS</h1>
+  <div class="record">
+      <div class="record__category" id="booking-record">預約紀錄</div>
+      <div class="record__category" id="order-record">付款紀錄</div>
+  </div>
+  <div class="record__order">
+    <div class="record__title">
+        <div class="record__order-number">訂單編號</div>
+        <div class="record__order-price">金額</div>
+        <div class="record__order-status">訂單狀態</div>
+        <div class="record__order-time">付款時間</div>
+    </div>
+  </div>
+  <div class="record__booking">
+    <div class="record__title">
+        <div class="record__order-number">景點</div>
+        <div class="record__order-date">預約日期</div>
+        <div class="record__order-status">預約時段</div>
+        <div class="record__order-price">金額</div>
+        <div class="record__order-status">付款狀態</div>
+    </div>
+  </div>
   <footer class="thankyou__footer">
     <p>COPYRIGHT &copy; 2024 台北一日遊</p>
   </footer>

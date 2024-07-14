@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", async function() {
         if (value === "顯示更多 ▼") {
             container.style.height = "230px";
             event.currentTarget.textContent = "顯示更少 ▲";
-            event.currentTarget.style.top = "174px";
+            event.currentTarget.style.top = "200px";
             return;
         }
         container.style.height = "80px";

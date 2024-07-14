@@ -45,7 +45,18 @@ let bookingModel = {
         if (response.status === 200) {
             return await response.json();
         }
-        
+    },
+    fetchAllBookings: async function() {
+        let token = localStorage.getItem("token");
+        let response = await fetch(
+            "/api/booking/all",
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
+        if (response.status === 200) {
+            return await response.json();
+        }
     }
 }
 

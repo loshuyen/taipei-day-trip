@@ -1,8 +1,10 @@
 import bookingModel from "../models/booking.js";
 import bookingView from "../views/booking.js";
-import {addSignEvents} from "../controllers/user.js";
+import {addSignEvents, updateSignLink} from "../controllers/user.js";
 import orderSubmit from "../controllers/order.js";
-import { updateSignLink } from "../controllers/user.js";
+
+const loadingBackground = document.querySelector(".booking__loading-background");
+const loadingEffect = document.querySelector(".booking__loading-effect");
 
 let user;
 window.addEventListener("DOMContentLoaded", async function() {
@@ -45,6 +47,16 @@ window.addEventListener("DOMContentLoaded", async function() {
 
     document.querySelector(".booking-total__submit-btn").addEventListener("click", function() {
         orderSubmit(unpaidBooking);
+    });
+
+    document.addEventListener("request-start", function() {
+        loadingBackground.style.display = "block";
+        loadingEffect.style.display = "block";
+    });
+
+    document.addEventListener("request-end", function() {
+        loadingBackground.style.display = "none";
+        loadingEffect.style.display = "none";
     });
 });
 

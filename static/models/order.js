@@ -33,7 +33,22 @@ let orderModel = {
             return await result.data;
         }
         console.log(result.message);
-    }
+    },
+    fetchAllOrders: async function(userId) {
+        let token = localStorage.getItem("token");
+        let response = await fetch(
+            "/api/orders/all",
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+        if (response.status === 200) {
+            return await response.json();
+        }
+        console.log(result.message);
+    },
 };
 
 export default orderModel;

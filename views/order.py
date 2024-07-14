@@ -37,3 +37,13 @@ class OrderPaidData(OrderBase):
 
 class OrderPaid(BaseModel):
     data: OrderPaidData | None
+
+class OderAllBase(BaseModel):
+    number: str
+    price: int
+    status: int
+    created_time: str
+    booking_id: int
+
+class OderAll(BaseModel):
+    data: list[OderAllBase] | None

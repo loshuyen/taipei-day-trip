@@ -1,6 +1,6 @@
 import config from "./config.js";
-import bookingModel from "../models/booking.js";
 import orderModel from "../models/order.js";
+import { triggerEvent } from "../controllers/user.js";
 
 TPDirect.setupSDK(151595, config.TAPPAY_APP_KEY, "sandbox");
 
@@ -60,11 +60,11 @@ export default async function orderSubmit(unpaidBooking) {
 
     // Get prime
     TPDirect.card.getPrime(async (result) => {
+        triggerEvent(document, "request-start", null);
         if (result.status !== 0) {
             return console.log(result);
         }
         const prime = result.card.prime;
-        // const unpaidBooking = await bookingModel.fetchUnpaidBooking();
         const orderBody = {
             prime,
             order: {
@@ -86,6 +86,7 @@ export default async function orderSubmit(unpaidBooking) {
             return alert("付款失敗");
         }
         const orderNumber = paySuccess.number;
+        triggerEvent(document, "request-end", null);
         window.location.href = `/thankyou?number=${orderNumber}`;
     });
 }

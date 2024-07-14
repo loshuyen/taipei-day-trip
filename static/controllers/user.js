@@ -133,7 +133,7 @@ function toggleMenu(event) {
 
 }
 
-function triggerEvent(element, eventType, eventDetail) {
+export function triggerEvent(element, eventType, eventDetail) {
     const event = new CustomEvent(eventType, {detail: eventDetail});
     element.dispatchEvent(event);
 }

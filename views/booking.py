@@ -16,3 +16,15 @@ class BookingNew(BaseModel):
     date: str
     time: str
     price: int
+
+class Booking(BaseModel):
+    id: int
+    attraction_name: str
+    date: str
+    time: str
+    price: int
+    is_paid: int
+    created_time: str
+
+class AllBooking(BaseModel):
+    data: list[Booking] | None

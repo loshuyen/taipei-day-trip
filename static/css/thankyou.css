@@ -38,6 +38,7 @@
     top: 40px;
     left: 300px;
     transition: top 0.8s;
+    cursor: pointer;
 }
 
 .thankyou__footer {
