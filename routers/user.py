@@ -1,10 +1,11 @@
 from fastapi import *
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from typing import Annotated
 import os
 import jwt
 import datetime
+import io
 from models.user import UserModel
 from views.user import *
 
@@ -52,3 +53,8 @@ def signin(user: UserSignin):
 		return JSONResponse(status_code=200, content={"token": token})
 	except:
 		return JSONResponse(status_code=500, content={"error": True, "message": "伺服器內部錯誤"})
+
+@router.get("/api/user/photo")
+def get_user_photo(user: Annotated[UserOutput, Depends(get_auth_user)]):
+	photo_blob = UserModel.get_photo_blob(user["id"])
+	return StreamingResponse(io.BytesIO(photo_blob), media_type="image/png")

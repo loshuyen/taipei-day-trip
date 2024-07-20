@@ -8,6 +8,11 @@ def encode_password(password):
     hash.update(password_secret.encode("utf-8"))
     return hash.hexdigest()
 
+def convert_image_to_blob(image_path):
+    with open(image_path, "rb") as file:
+        blob = file.read()
+        return blob
+
 class UserModel:
     def get_username_by_email(email: str) -> tuple:
         try:
@@ -37,6 +42,39 @@ class UserModel:
             cursor = db.cursor()
             cursor.execute("SELECT * FROM user WHERE email=%s and password=%s;", (email, hashed_password))
             return cursor.fetchone()
+        finally:
+            cursor.close()
+            db.close()
+    
+    def get_photo_blob(user_id):
+        try:
+            db = pool.get_connection()
+            cursor = db.cursor()
+            cursor.execute("SELECT photo FROM photo WHERE user_id=%s;", (user_id, ))
+            return cursor.fetchall()[0][0]
+        finally:
+            cursor.close()
+            db.close()
+    
+    def add_new_photo(user_id, photo_blob):
+        try:
+            db = pool.get_connection()
+            cursor = db.cursor()
+            cursor.execute("INSERT INTO photo (photo, user_id) VALUES (%s, %s);", (photo_blob, user_id, ))
+            new_id = cursor.lastrowid
+            db.commit()
+            cursor.execute("UPDATE user SET photo_id=%s WHERE id=%s;", (new_id, user_id))
+            db.commit()
+        finally:
+            cursor.close()
+            db.close()
+
+    def update_photo(user_id, photo_blob):
+        try:
+            db = pool.get_connection()
+            cursor = db.cursor()
+            cursor.execute("UPDATE photo SET photo=%s WHERE user_id=%s;", (photo_blob, user_id, ))
+            db.commit()
         finally:
             cursor.close()
             db.close()
