@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from routers import user, attraction, mrt, booking, order
 
 app=FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 app.include_router(user.router, tags=["User"])
 app.include_router(attraction.router, tags=["Attraction"])

@@ -6,6 +6,6 @@ dbconfig = {
   "database": "tdtDB",
   "user": "root",
   "password": os.getenv("MYSQL_PASSWORD"),
-  "host": "localhost"
+  "host": "host.docker.internal"
 }
 pool = pooling.MySQLConnectionPool(pool_name = "mypool", pool_size = 10, **dbconfig)
