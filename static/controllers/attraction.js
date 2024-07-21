@@ -3,7 +3,7 @@ import attractionView from "../views/attraction.js";
 import {updateSignLink, addSignEvents} from "../controllers/user.js";
 import BookingModel from "../models/booking.js";
 
-const slideIndex = 1;
+let slideIndex = 1;
 function showImage(n) {
     const images = document.querySelectorAll(".attraction-detail__img");
     const dots = document.querySelectorAll(".attraction-detail__dot");
