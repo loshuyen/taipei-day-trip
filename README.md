@@ -5,6 +5,7 @@
 * [Features](#Features)
 * [Tech Stack](#Tech-Stack)
 * [Database ERD](#Database-ERD)
+* [RESTful APIs](#RESTful-APIs)
 * [Contact](#Contact)
 
 # Features
@@ -40,6 +41,11 @@
 # Database ERD
 <img width="688" alt="image" src="https://github.com/user-attachments/assets/1a4573d6-14a6-4977-acd7-7dacaa9bdd2e">
 
+# RESTful APIs
+<img width="1466" alt="image" src="https://github.com/user-attachments/assets/984cdd58-e5e0-4d32-a10a-de9a4b06eb23">
+
+
 # Contact
 Author: 羅書硯 Shu-Yen Lo
+
 Email: sycw723@gmail.com
