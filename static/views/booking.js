@@ -1,4 +1,5 @@
 import bookingModel from "../models/booking.js";
+import indexView from "./index.js";
 
 let bookingView = {
     renderBooking: function(username, email, bookingInfo) {
@@ -8,13 +9,17 @@ let bookingView = {
                 element.style.display = "none";
             });
             document.querySelector(".booking-total").style.display = "none";
-            document.querySelector(".booking__no-record").style.display = "flex";
+            document.querySelectorAll(".booking__no-record").forEach(element => {
+                element.style.display = "flex";
+            });
             return;
         }
         let {attraction, date, time, price} = bookingInfo;
         time = "morning" ? "早上9點到下午4點" : "下午2點到晚上9點"
         document.querySelector(".booking__schedule").innerHTML = `
-        <img src=${attraction.image} class="booking__schedule__img">
+        <div class="booking__schedule__img-container">
+            <img src=${attraction.image}>
+        </div>
         <div class="booking-content">
         <div class="booking-content__name">${attraction.name}</div>
         <div class="booking-content__item">日期：<span>${date}</span></div>
@@ -26,6 +31,13 @@ let bookingView = {
         </button>
         </div>
         `;
+        let imgContainer = document.querySelector(".booking__schedule__img-container");
+        let loadingIcon = indexView.createLoadingIconElement();
+        imgContainer.appendChild(loadingIcon);
+        document.querySelector(".booking__schedule__img-container img").addEventListener("load", function(event) {
+            loadingIcon.style.display = "none";
+            event.currentTarget.style.display = "block";
+        });
         document.querySelector(".booking-content__delete-btn").addEventListener("click", async function() {
             await bookingModel.fetchDeleteUnpaidBooking();
             window.location.reload();

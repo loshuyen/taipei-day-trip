@@ -8,7 +8,7 @@ from models.booking import BookingModel
 router = APIRouter()
 
 @router.get("/api/booking")
-def get_booking_info(user: Annotated[UserOutput, Depends(get_auth_user)]) -> BookingInfo:
+def get_unpaid_booking(user: Annotated[UserOutput, Depends(get_auth_user)]) -> BookingInfo:
     if not user:
         return JSONResponse(status_code=403, content={"error": True, "message": "未登入系統，拒絕存取"})
     booking = BookingModel.get_unpaid_booking(user["id"])
@@ -49,5 +49,11 @@ def delete_booking(user: Annotated[UserOutput, Depends(get_auth_user)]):
     BookingModel.delete_unpaid_booking(user["id"])
     return {"ok": True}
 
-    
-    
+@router.get("/api/booking/all")
+def get_all_booking(user: Annotated[UserOutput, Depends(get_auth_user)]) -> AllBooking:
+    if not user:
+        return JSONResponse(status_code=403, content={"error": True, "message": "未登入系統，拒絕存取"})
+    bookings = BookingModel.get_all_booking(user["id"])
+    if not bookings:
+        return {"data": None}
+    return {"data": bookings}

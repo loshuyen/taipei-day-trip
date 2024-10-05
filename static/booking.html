@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="../static/css/booking.css">
   <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
   <script defer src="../static/controllers/booking.js" type="module"></script>
-  <script defer src="../static/controllers/order.js" type="module"></script>
 </head>
 <body>
   <nav class="nav">
@@ -19,14 +18,28 @@
         <p class="nav__title">台北一日遊</p>
         <div class="nav__btn" id="nav-booking-btn">預定行程</div>
         <div class="nav__btn" id="signin-link">登入/註冊</div>
-        <div class="nav__btn" id="signout-link" style="display: none">登出系統</div>
+        <div class="nav__member" id="member-link" style="display: none">
+          <div class="nav__member-photo-container">
+              <img src="../static/images/1333dd1ee2148af3-sticker.png" class="nav__member-photo">
+          </div>
+          <div class="nav__menu">
+              <div class="nav__menu-item" id="member-profile">個人資訊</div>
+              <div class="nav__menu-item" id="member-record">訂單記錄</div>
+              <div class="nav__menu-item" id="signout-link">登出</div>
+          </div>
+      </div>
     </div>
   </nav>
   <hr>
   <div class="booking-greeting">
     您好，<span></span>，待預定的行程如下：
   </div>
-  <div class="booking__no-record">目前沒有任何待預訂的行程</div>
+  <div class="booking__no-record">
+    目前沒有任何待預訂的行程
+  </div>
+  <div class="booking__no-record">
+    <a href="/">找行程</a>
+  </div>
   <div class="booking">
     <div class="booking__schedule">
     </div>
@@ -36,12 +49,15 @@
         <div class="booking-info__title">您的聯絡資訊</div>
         <div class="booking-info__user">
           聯絡姓名：<input type="text" id="booking-user-name">
+          <img src="../static/images/icon/icon_checked.svg" id="booking-user-name-check" class="booking-info__check--ok">
         </div>
         <div class="booking-info__user">
           聯絡信箱：<input type="text" id="booking-user-email">
+          <img src="../static/images/icon/icon_checked.svg" id ="booking-user-email-check" class="booking-info__check--ok">
         </div>
         <div class="booking-info__user">
           手機號碼：<input type="text" id="booking-user-phoneNumber" maxlength="10">
+          <img src="../static/images/icon/icon_checked.svg" id="booking-user-phoneNumber-check" class="booking-info__check--fail">
         </div>
         <div class="booking-info__note">
           請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
@@ -82,8 +98,14 @@
       <button class="sign__close-btn">
           <img src="../static/images/icon/icon_close.svg">
       </button>
-      <input type="text" name="email" class="sign__input" placeholder="輸入電子信箱">
-      <input type="password" name="password" class="sign__input" placeholder="輸入密碼">
+      <div class="sign__input-container">
+          <input type="text" name="email" class="sign__input" id="sign__input-email" placeholder="輸入電子信箱">
+          <img src="../static/images/icon/icon_checked.svg" id ="sign__input-email-check" class="sign__input__check--ok">
+      </div>
+      <div class="sign__input-container">
+          <input type="password" name="password" id="sign__input-password" class="sign__input" placeholder="輸入密碼">
+          <img src="../static/images/icon/icon_checked.svg" id ="sign__input-password-check" class="sign__input__check--ok">
+      </div>
       <button class="sign__submit-btn" id="signin-btn">登入帳戶</button>
       <div id="signin-message"></div>
       <div class="sign__description">
@@ -98,14 +120,37 @@
       <button class="sign__close-btn">
           <img src="../static/images/icon/icon_close.svg">
       </button>
-      <input type="text" name="signup-name" class="sign__input" placeholder="輸入姓名">
-      <input type="text" name="signup-email" class="sign__input" placeholder="輸入電子信箱">
-      <input type="password" name="signup-password" class="sign__input" placeholder="輸入密碼">
+      <div class="sign__input-container">
+          <input type="text" name="signup-name" id="signup-name" class="sign__input" placeholder="輸入姓名">
+          <img src="../static/images/icon/icon_checked.svg" id ="signup-name-check" class="sign__input__check--ok">
+      </div>
+      <div class="sign__input-container">
+          <input type="text" name="signup-email" id="signup-email" class="sign__input" placeholder="輸入電子信箱">
+          <img src="../static/images/icon/icon_checked.svg" id ="signup-email-check" class="sign__input__check--ok">
+      </div>
+      <div class="sign__input-container">
+          <input type="password" name="signup-password" id="signup-password" class="sign__input" placeholder="輸入密碼">
+          <img src="../static/images/icon/icon_checked.svg" id ="signup-password-check" class="sign__input__check--ok">
+      </div>
       <button class="sign__submit-btn" id="signup-btn">註冊新帳戶</button>
       <div id="signup-message"></div>
       <div class="sign__description">
           已經有帳戶了？<span id="signin-link">點此登入</span>
       </div>
   </div>
+  <div class="booking__loading-effect">
+    <svg width="70" height="50" viewBox="0 0 70 50" xmlns="http://www.w3.org/2000/svg" fill="#448899">    
+      <circle cx="15" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="35" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.1s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="55" cy="25" r="6">
+        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.2s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+  </div>
+  <div class="booking__loading-background"></div>
 </body>
 </html>

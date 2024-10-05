@@ -16,3 +16,6 @@ class UserResponse(BaseModel):
 class UserSignin(BaseModel):
 	email: EmailStr
 	password: str
+
+class UserPhoto(BaseModel):
+	photo: str

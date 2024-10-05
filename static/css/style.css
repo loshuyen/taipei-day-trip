@@ -53,6 +53,58 @@ body {
     cursor: pointer;
 }
 
+.nav__member {
+    height: 34px;
+    /* padding: 10px; */
+    color: #666666;
+    cursor: pointer;
+
+    position: relative;
+}
+
+.nav__member-photo-container {
+    height: 34px;
+    width: 34px;
+    
+
+    position: relative;
+}
+
+.nav__member-photo {
+    max-width: 90%;
+    border-radius: 50%;
+    border: 1px solid #e8e8e8;
+
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    margin: auto;
+}
+
+.nav__menu {
+    margin-top: 20px;
+    background-color: #fff;
+    min-width: 120px;
+    position: absolute;
+    right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+    display: none;
+}
+
+.nav__menu-item {
+    padding: 17px;
+}
+
+.nav__menu-item:hover {
+    background-color: #AADDEE
+    ;
+
+}
+
 hr {
     border-top: 0.5px solid #e8e8e8;
     position: sticky;
@@ -165,6 +217,11 @@ hr {
     font-weight: 500;
     color: #666666;
     cursor: pointer;
+    transition: transform 0.3s ease-out;
+}
+
+.mrt-bar__item:hover {
+    transform: scale(1.3) translate(0, -5px);
 }
 
 .mrt-bar__btn {
@@ -201,13 +258,32 @@ hr {
     margin: 15px;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.5s ease-out;
+    overflow: hidden;
 
     position: relative;
 }
 
+/* .attraction__item:hover {
+    transform: scale(1.1);
+} */
+
 .attraction__img {
     width: 100%;
     height: 197px;
+    position: relative;
+    transition: transform 0.5s ease-out;
+}
+
+.attraction__img:hover {
+    transform: scale(1.1);
+}
+
+.image-loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .attraction__img img {
@@ -216,6 +292,7 @@ hr {
     object-fit: cover;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    display: none;
 }
 
 .attraction__name {
@@ -517,6 +594,16 @@ hr {
     font-size: 19px;
     line-height: 16px;
     cursor: pointer;
+    transition: box-shadow transform 0.2s ease;
+}
+
+.attraction-detail__booking-btn:hover {
+    box-shadow: 4px 4px 0 rgba(68, 136, 153, 0.5);
+}
+
+.attraction-detail__booking-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 4px 4px 0 rgba(68, 136, 153, 0);
 }
 
 .attraction-information {
@@ -616,18 +703,38 @@ hr {
     height: 16px;
 }
 
-.sign__input {
-    display: block;
+.sign__input-container {
     width: 310px;
     height: 47px;
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     color: #757575;
+    margin: 10px 15px;
+
+    position: relative;
+}
+
+.sign__input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
     font-weight: 500;
     font-size: 16px;
-    margin: 10px 15px;
     padding: 15px 15px;
 
+}
+
+.sign__input__check--ok {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(99%) sepia(78%) saturate(751%) hue-rotate(70deg) brightness(97%) contrast(92%);
+    display: none;
+    
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
 }
 
 .sign__submit-btn {

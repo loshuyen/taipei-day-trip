@@ -1,4 +1,22 @@
 let indexView = {
+    createLoadingIconElement: function() {
+        const loadingIcon = document.createElement("div");
+        loadingIcon.className = "image-loading-icon";
+        loadingIcon.innerHTML = `
+                <svg width="70" height="50" viewBox="0 0 70 50" xmlns="http://www.w3.org/2000/svg" fill="#448899">    
+                <circle cx="15" cy="25" r="6">
+                        <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="35" cy="25" r="6">
+                    <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.1s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="55" cy="25" r="6">
+                    <animate attributeName="cy" values="25;10;25" dur="0.6s" begin="0.2s" repeatCount="indefinite" />
+                </circle>
+                </svg>
+            `;
+        return loadingIcon;
+    },
     renderAllAttractions: function(attractionData, toAttractionPage) {
         const attraction = document.querySelector(".attraction");
         for (let data of attractionData) {
@@ -10,10 +28,15 @@ let indexView = {
             const info = document.createElement("div");
             const p1 = document.createElement("p");
             const p2 = document.createElement("p");
+            const loadingIcon = this.createLoadingIconElement();
             item.id = "attraction-" + data.id;
             item.className = "attraction__item";
             imgDiv.className = "attraction__img";
             img.src = data.images[0] || "../../static/images/default_img.png";
+            img.onload = function() {
+                loadingIcon.style.display = "none";
+                img.style.display = "block";
+            };
             name.className = "attraction__name";
             span.textContent = data.name;
             info.className = "attraction__info";
@@ -21,6 +44,7 @@ let indexView = {
             p2.textContent = data.category;
             attraction.appendChild(item);
             item.appendChild(imgDiv);
+            imgDiv.appendChild(loadingIcon);
             imgDiv.appendChild(img);
             item.appendChild(name);
             name.appendChild(span);

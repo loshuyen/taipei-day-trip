@@ -1,7 +1,7 @@
 import attractionModel from "../models/attraction.js";
 import indexView from "../views/index.js";
 import mrtModel from "../models/mrt.js";
-import * as auth from "../controllers/user.js";
+import {updateSignLink, addSignEvents} from "../controllers/user.js";
 
 function scrollContent(name, direction) {
     const content = document.querySelector(name);
@@ -45,12 +45,26 @@ async function loadMrt() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    auth.updateSignLink();
-});
-
-window.addEventListener("load", async function() {
+    updateSignLink();
     loadMrt();
     loadAttraction(keyword);
+    addSignEvents();
+
+    document.querySelector(".header__search-btn").addEventListener("click", searchByKeyword);
+
+    document.querySelector(".mrt-bar__btn[name='left']").addEventListener("click", function() {
+        scrollContent(".mrt-bar__list", "left");
+    });
+
+    document.querySelector(".mrt-bar__btn[name='right']").addEventListener("click", function() {
+    scrollContent(".mrt-bar__list", "right");
+    });
+
+    document.querySelector("#keyword").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector(".header__search-btn").click();
+        }
+    });
 });
 
 window.addEventListener("scroll", async function() {
@@ -61,22 +75,3 @@ window.addEventListener("scroll", async function() {
     }
 });
 
-document.querySelector(".header__search-btn").addEventListener("click", searchByKeyword);
-
-document.querySelector(".mrt-bar__btn[name='left']").addEventListener("click", function() {
-    scrollContent(".mrt-bar__list", "left");
-});
-
-document.querySelector(".mrt-bar__btn[name='right']").addEventListener("click", function() {
-    scrollContent(".mrt-bar__list", "right");
-});
-
-document.querySelector(".nav__title").addEventListener("click", function() {
-    window.location.reload();
-});
-
-document.querySelector("#keyword").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        document.querySelector(".header__search-btn").click();
-    }
-});

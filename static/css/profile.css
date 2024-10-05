@@ -1,0 +1,83 @@
+.profile {
+    width: 1200px;
+    margin: 0 auto;
+    color: #666666;
+    font-weight: 500;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.profile__category {
+    text-align: center;
+    position: relative;
+    padding: 10px 0;
+    width: 100px;
+    cursor: pointer;
+    border-bottom: 2px solid #448899;
+}
+
+.profile__content {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.profile__photo {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #666666;
+    border-radius: 10px;
+
+    position: relative;
+}
+
+.profile__photo-user {
+    max-width: 100%;
+    border-radius: 10px;
+
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    margin: auto;
+}
+
+.profile__photo-edit {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.profile__photo-edit:hover {
+    opacity: 1;
+}
+
+.profile__name, .profile__email {
+    width: 100%;
+    padding: 20px;
+    margin-left: 15px;
+    font-size: 30px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.profile__name-edit, .profile__email-edit {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.profile__name-edit:hover, .profile__email-edit:hover {
+    opacity: 1;
+}
