@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from typing import Annotated
 from models.attraction import AttractionModel
 from views.attraction import *
+from utils import cache
 
 router = APIRouter()
 
@@ -50,16 +51,20 @@ async def get_attraction_list(page: Annotated[int, Query(ge=0)], keyword: str | 
 @router.get("/api/attraction/{attractionId}")
 async def get_attraction(attractionId: int) -> AttractionResponse:
 	try:
-		attration_info = AttractionModel.get_attraction_by_id(attractionId)
-		if not attration_info:
-			return JSONResponse(
-				status_code=400,
-				content={"error": True, "message": "景點編號不正確"}
-			)
-		image_urls = AttractionModel.get_images_by_attraction_id(attractionId)
-		attraction_data = arrange_data(attration_info, image_urls)
+		attraction_data = cache.get_attraction(attractionId)
+		if not attraction_data:
+			attration_info = AttractionModel.get_attraction_by_id(attractionId)
+			if not attration_info:
+				return JSONResponse(
+					status_code=400,
+					content={"error": True, "message": "景點編號不正確"}
+				)
+			image_urls = AttractionModel.get_images_by_attraction_id(attractionId)
+			attraction_data = arrange_data(attration_info, image_urls)
+			cache.set_attraction(attractionId, attraction_data)
 		return {"data": attraction_data}
-	except:
+	except Exception as e:
+		print(e)
 		return JSONResponse(
 				status_code=500,
 				content={"error": True, "message": "伺服器內部錯誤"}
